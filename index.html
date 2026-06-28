@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Helsinki → Rotterdam · A Brompton, Eurail &amp; Ferry Summer · 2026</title>
+<meta name="description" content="A 49-night folding-bike, train and ferry journey from Helsinki to Rotterdam -- libraries, urbanism, parks, science museums and great trains across the Baltics, Poland, the Alpine south and the Rhine." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+  :root{
+    --ink:#16181C;
+    --paper:#EEF0EB;
+    --card:#FFFFFF;
+    --muted:#565A55;
+    --rail:#CBCEC6;
+    --line:#DCDED6;
+
+    /* Route legs -- each leg of the journey has its own livery colour */
+    --baltics:#176B7C;  /* teal -- the Baltic coast */
+    --poland:#B0302A;   /* crimson -- PKP red */
+    --south:#2D5E4C;    /* pine -- Austria & Slovenia */
+    --rhine:#8A5A14;    /* ochre -- the Rhine & vineyards */
+
+    --display:'Bricolage Grotesque','Hanken Grotesk',system-ui,sans-serif;
+    --body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'Space Mono','SFMono-Regular',ui-monospace,Menlo,monospace;
+
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box}
+  html{
+    font-size:clamp(18px, 1rem + 0.28vw, 21px);
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.55;
+    letter-spacing:0.002em;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* faint cartographic grid in the page background */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(22,24,28,.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(22,24,28,.035) 1px, transparent 1px);
+    background-size:46px 46px;
+    mask-image:radial-gradient(ellipse at 50% 0%, #000 30%, transparent 78%);
+  }
+
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,44px);position:relative;z-index:1}
+  .band{padding-block:clamp(52px,8vw,104px);position:relative;z-index:1}
+
+  a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1.5px}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--baltics);outline-offset:3px;border-radius:2px}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.74rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:clamp(28px,5vw,56px);padding-bottom:clamp(40px,7vw,80px);position:relative;z-index:1}
+  .hero__inner{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,44px)}
+
+  .routebar{display:flex;align-items:center;gap:.7rem;margin:1.4rem 0 2.1rem}
+  .routebar__dot{width:15px;height:15px;border-radius:50%;background:var(--baltics);flex:none;box-shadow:0 0 0 4px rgba(23,107,124,.16)}
+  .routebar__line{
+    height:5px;flex:1;border-radius:4px;
+    background:linear-gradient(90deg,
+      var(--baltics) 0 30%,
+      var(--poland) 30% 52%,
+      var(--south) 52% 74%,
+      var(--rhine) 74% 100%);
+  }
+  .routebar__ring{width:15px;height:15px;border-radius:50%;background:var(--paper);border:4px solid var(--rhine);flex:none}
+
+  .hero h1{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.7rem,8.2vw,5.6rem);
+    line-height:.96;
+    letter-spacing:-.02em;
+    margin:.2rem 0 0;
+  }
+  .hero h1 .arrow{color:var(--poland);font-weight:600;padding:0 .12em}
+  .hero__sub{
+    font-size:clamp(1.1rem,2.4vw,1.4rem);
+    max-width:36ch;
+    color:var(--ink);
+    margin:1.1rem 0 0;
+    font-weight:500;
+  }
+  .hero__thesis{color:var(--muted);max-width:50ch;margin:.7rem 0 0;font-size:1.02rem}
+
+  .ticket{
+    margin-top:2.3rem;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    box-shadow:0 1px 0 rgba(22,24,28,.04),0 18px 40px -28px rgba(22,24,28,.5);
+    overflow:hidden;
+  }
+  .ticket__row{
+    display:flex;align-items:stretch;flex-wrap:wrap;
+    font-family:var(--mono);
+  }
+  .ticket__end{padding:1.05rem 1.3rem;flex:1 1 180px}
+  .ticket__end small{display:block;font-size:.66rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .ticket__end b{display:block;font-size:1.18rem;font-weight:700;margin-top:.25rem;letter-spacing:-.01em}
+  .ticket__mid{
+    flex:2 1 200px;display:flex;align-items:center;justify-content:center;gap:.6rem;
+    padding:1.05rem 1rem;font-size:.8rem;color:var(--muted);
+    border-inline:1px dashed var(--line);
+  }
+  .ticket__mid .seg{height:2px;width:34px;background:var(--rail)}
+  .ticket__stats{
+    display:flex;flex-wrap:wrap;gap:0;
+    border-top:1px dashed var(--line);
+    font-family:var(--mono);
+  }
+  .ticket__stats div{
+    flex:1 1 auto;min-width:96px;text-align:center;
+    padding:.85rem .6rem;border-right:1px dashed var(--line);
+  }
+  .ticket__stats div:last-child{border-right:none}
+  .ticket__stats b{display:block;font-size:1.5rem;line-height:1;letter-spacing:-.02em}
+  .ticket__stats small{display:block;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.35rem}
+
+  /* ---------- STICKY NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(238,240,235,.86);
+    backdrop-filter:saturate(140%) blur(10px);
+    border-block:1px solid var(--line);
+  }
+  .nav__inner{
+    max-width:var(--maxw);margin-inline:auto;padding:.55rem clamp(16px,5vw,44px);
+    display:flex;gap:.3rem;align-items:center;overflow-x:auto;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+    scrollbar-width:none;
+  }
+  .nav__inner::-webkit-scrollbar{display:none}
+  .nav a{
+    text-decoration:none;color:var(--muted);white-space:nowrap;
+    padding:.45rem .7rem;border-radius:999px;flex:none;transition:color .2s,background .2s;
+  }
+  .nav a:hover{color:var(--ink)}
+  .nav a.active{color:var(--ink);background:rgba(22,24,28,.07)}
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .sechead{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:2.2rem}
+  .sechead h2{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(1.7rem,4.4vw,2.7rem);line-height:1;letter-spacing:-.02em;margin:.4rem 0 0;
+  }
+  .sechead p{color:var(--muted);margin:.2rem 0 0;max-width:54ch}
+
+  /* ---------- LEGEND ---------- */
+  .legend{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
+  .legend span{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.4rem .8rem;
+  }
+  .legend i{width:13px;height:13px;border-radius:50%;flex:none}
+
+  /* ---------- GEOGRAPHIC MAP ---------- */
+  .mapwrap{
+    position:relative;margin:2.4rem 0 0;
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:0 14px 36px -30px rgba(22,24,28,.5);background:var(--card);
+  }
+  #map{height:clamp(340px,56vh,560px);width:100%;background:#E9EBE6;z-index:1}
+  .leaflet-container{font-family:var(--body);background:#E9EBE6}
+  .mapcap{
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    padding:.75rem .95rem;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  }
+  .leaflet-tooltip.route-label{
+    background:transparent;border:none;box-shadow:none;padding:0;
+    color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.02em;
+    text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 6px #fff,0 0 6px #fff;
+  }
+  .leaflet-tooltip.route-label::before{display:none}
+  .leaflet-bar a{color:var(--ink)}
+
+  /* ---------- STRIP MAP ---------- */
+  .strip{margin-top:.5rem}
+  .stop{
+    display:grid;
+    grid-template-columns:clamp(40px,9vw,64px) 1fr;
+    column-gap:clamp(12px,3vw,26px);
+    padding-bottom:clamp(22px,4vw,40px);
+    --leg:var(--rail);
+  }
+  .stop[data-leg=baltics]{--leg:var(--baltics)}
+  .stop[data-leg=poland]{--leg:var(--poland)}
+  .stop[data-leg=south]{--leg:var(--south)}
+  .stop[data-leg=rhine]{--leg:var(--rhine)}
+
+  .stop__marker{position:relative}
+  .stop__marker::before{ /* the rail */
+    content:"";position:absolute;left:50%;top:0;bottom:0;width:5px;
+    transform:translateX(-50%);background:var(--leg);border-radius:6px;
+  }
+  .stop__node{
+    position:absolute;left:50%;top:.45rem;transform:translate(-50%,0);
+    width:21px;height:21px;border-radius:50%;background:var(--leg);
+    border:4px solid var(--card);box-shadow:0 0 0 1.5px var(--leg);z-index:2;
+  }
+  .stop--bookend .stop__node{width:15px;height:15px;top:.3rem}
+  .stop--bookend .stop__marker::before{opacity:.55}
+  .stop--end .stop__node{background:var(--card);box-shadow:0 0 0 4px var(--rhine) inset,0 0 0 1.5px var(--rhine)}
+  .stop--end .stop__marker::before{display:none}
+
+  .stop__body{padding-top:.05rem}
+  .stop--bookend .stop__body{padding-top:.1rem}
+
+  .bookend{
+    font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;
+    font-size:.82rem;color:var(--muted);display:flex;gap:.7rem;flex-wrap:wrap;align-items:baseline;
+  }
+  .bookend b{color:var(--ink);font-size:1rem;letter-spacing:.04em}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    border-left:5px solid var(--leg);
+    padding:clamp(1.1rem,2.6vw,1.7rem);
+    box-shadow:0 14px 36px -30px rgba(22,24,28,.55);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 22px 44px -28px rgba(22,24,28,.5)}
+
+  .card__head{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-bottom:.2rem}
+  .card__name{font-family:var(--display);font-weight:800;font-size:clamp(1.45rem,3.6vw,2rem);letter-spacing:-.015em;line-height:1;margin:0}
+  .cc{
+    font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;
+    color:#fff;background:var(--leg);border-radius:5px;padding:.2rem .42rem;align-self:center;
+  }
+  .nights{
+    margin-left:auto;font-family:var(--mono);font-size:.82rem;font-weight:700;
+    color:var(--leg);white-space:nowrap;
+  }
+  .nights span{color:var(--muted);font-weight:400}
+  .arrive{
+    font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:.15rem 0 1rem;
+    display:flex;gap:.5rem;align-items:flex-start;
+  }
+  .arrive::before{content:"›";color:var(--leg);font-weight:700}
+
+  .facets{display:grid;grid-template-columns:1fr;gap:.7rem}
+  @media(min-width:620px){ .facets{grid-template-columns:1fr 1fr;gap:.7rem 1.6rem} }
+  .facet{display:grid;grid-template-columns:auto 1fr;gap:.6rem;align-items:start}
+  .facet dt{
+    font-family:var(--mono);font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--leg);padding-top:.18rem;white-space:nowrap;
+  }
+  .facet dd{margin:0;font-size:.98rem;line-height:1.42}
+  .facet--wide{grid-column:1/-1}
+  .facet--flag dd{font-weight:600}
+
+  /* ---------- PANELS (bikes / tickets / scenic / before) ---------- */
+  .grid2{display:grid;gap:clamp(1rem,2.4vw,1.5rem)}
+  @media(min-width:760px){ .grid2{grid-template-columns:1fr 1fr} }
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:clamp(1.2rem,3vw,1.9rem);
+    box-shadow:0 14px 36px -30px rgba(22,24,28,.5);
+  }
+  .panel h3{font-family:var(--display);font-weight:700;font-size:1.3rem;margin:0 0 .9rem;letter-spacing:-.01em}
+
+  .rules{list-style:none;margin:0;padding:0;display:grid;gap:.85rem}
+  .rules li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:start;font-size:1rem;line-height:1.45}
+  .rules li::before{
+    content:"";width:11px;height:11px;border-radius:3px;margin-top:.42rem;flex:none;
+    background:var(--accent,var(--baltics));
+  }
+  .rules b{font-weight:700}
+
+  /* timetable / reservations table */
+  .tt{width:100%;border-collapse:collapse;font-size:.92rem}
+  .tt caption{text-align:left;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-bottom:.7rem}
+  .tt th,.tt td{text-align:left;padding:.6rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+  .tt th{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .tt td:first-child{font-weight:600}
+  .tt .req{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+  .tt .req--must{color:var(--poland)}
+  .tt .req--rec{color:var(--south)}
+  .tt .req--off{color:var(--baltics)}
+
+  .passnote{
+    background:linear-gradient(180deg,rgba(23,107,124,.08),rgba(23,107,124,.03));
+    border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;margin-top:0;
+  }
+  .passnote .k{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
+  .passnote p{margin:.4rem 0 0;font-size:.96rem;color:var(--ink)}
+
+  /* scenic cards */
+  .scenic{display:grid;gap:1rem}
+  @media(min-width:680px){ .scenic{grid-template-columns:1fr 1fr} }
+  .scene{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;
+    border-top:4px solid var(--accent,var(--south));
+  }
+  .scene h4{margin:0 0 .35rem;font-family:var(--display);font-weight:700;font-size:1.08rem;letter-spacing:-.01em}
+  .scene p{margin:0;font-size:.95rem;color:var(--muted);line-height:1.45}
+  .scene .leg-from{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent,var(--south));display:block;margin-bottom:.4rem}
+
+  /* alert */
+  .alert{
+    display:flex;gap:1rem;align-items:flex-start;
+    background:var(--ink);color:#F3F2EC;border-radius:16px;
+    padding:clamp(1.1rem,2.6vw,1.5rem) clamp(1.2rem,3vw,1.7rem);margin-bottom:1.6rem;
+  }
+  .alert__tag{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:#E7B53C;color:#1a1a16;padding:.3rem .5rem;border-radius:5px;flex:none;margin-top:.15rem}
+  .alert b{font-family:var(--display);font-weight:700;font-size:1.15rem}
+  .alert p{margin:.3rem 0 0;color:#CFD2C9;font-size:.96rem}
+
+  .checks{list-style:none;margin:0;padding:0;display:grid;gap:.8rem}
+  .checks li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:start;font-size:1rem;line-height:1.45}
+  .checks li::before{content:"☐";color:var(--muted);font-size:1.1rem;line-height:1.2}
+  .checks b{font-weight:700}
+
+  /* ---------- FOOTER ---------- */
+  .foot{border-top:1px solid var(--line);margin-top:clamp(40px,7vw,80px)}
+  .foot .wrap{padding-block:clamp(32px,6vw,56px);display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:baseline;justify-content:space-between}
+  .foot p{margin:0;color:var(--muted);font-size:.88rem;max-width:48ch}
+  .foot .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+
+  /* ---------- MOTION ---------- */
+  .js .stop,.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+  .js .stop.in,.js .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .js .stop,.js .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    .card{transition:none}
+  }
+
+  /* ---------- PRINT ---------- */
+  @media print{
+    :root{--paper:#fff}
+    body{background:#fff}
+    body::before,.nav,.foot .mono{display:none}
+    .band{padding-block:18px}
+    .hero{padding:0}
+    .card,.panel,.scene{box-shadow:none;break-inside:avoid}
+    .stop{break-inside:avoid}
+    a{text-decoration:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="hero__inner">
+    <p class="eyebrow">Summer 2026 · Brompton · Eurail · Ferry</p>
+
+    <div class="routebar" aria-hidden="true">
+      <span class="routebar__dot"></span>
+      <span class="routebar__line"></span>
+      <span class="routebar__ring"></span>
+    </div>
+
+    <h1>Helsinki <span class="arrow">→</span> Rotterdam</h1>
+    <p class="hero__sub">A folding-bike, train and ferry summer across the Baltics, Poland, the Alpine south and the Rhine.</p>
+    <p class="hero__thesis">Built around the things we actually love -- libraries, walkable streets, parks, science museums, bike trails and great trains. Depth over breadth: long stays, weighted east, where the going is hardest to reach.</p>
+
+    <div class="ticket" role="group" aria-label="Trip summary">
+      <div class="ticket__row">
+        <div class="ticket__end">
+          <small>Depart</small>
+          <b>HEL · Jul 3</b>
+        </div>
+        <div class="ticket__mid" aria-hidden="true">
+          <span class="seg"></span> 49 NIGHTS <span class="seg"></span>
+        </div>
+        <div class="ticket__end" style="text-align:right">
+          <small>Arrive</small>
+          <b>RTM · Aug 21</b>
+        </div>
+      </div>
+      <div class="ticket__stats">
+        <div><b>13</b><small>Stops</small></div>
+        <div><b>8</b><small>Countries</small></div>
+        <div><b>2</b><small>Bromptons</small></div>
+        <div><b>1</b><small>Ferry</small></div>
+        <div><b>0</b><small>Flights</small></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" aria-label="Sections">
+  <div class="nav__inner">
+    <a href="#route">The Line</a>
+    <a href="#bikes">The Bromptons</a>
+    <a href="#tickets">Tickets &amp; Passes</a>
+    <a href="#scenic">Scenic Trains</a>
+    <a href="#before">Before You Go</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===================== THE LINE ===================== -->
+  <section class="band" id="route">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">The route</p>
+          <h2>One line, four liveries</h2>
+          <p>The journey reads as a single rail line that changes colour as it crosses each region. Every stop earns its nights with a library, a science museum, a garden, a ride, or a car-free core worth inhabiting.</p>
+        </div>
+      </div>
+
+      <figure class="mapwrap" style="margin-top:2.4rem">
+        <div id="map" role="img" aria-label="Map of the route from Helsinki to Rotterdam with 13 station stops, drawn in four leg colours"></div>
+        <figcaption class="mapcap">
+          <span>Helsinki → Rotterdam · 13 stops · no flights</span>
+          <span>Schematic -- straight lines between stations</span>
+        </figcaption>
+      </figure>
+
+      <div class="legend reveal" role="list" aria-label="Route legs">
+        <span role="listitem"><i style="background:var(--baltics)"></i>Baltics</span>
+        <span role="listitem"><i style="background:var(--poland)"></i>Poland</span>
+        <span role="listitem"><i style="background:var(--south)"></i>The Alpine South</span>
+        <span role="listitem"><i style="background:var(--rhine)"></i>The Rhine Return</span>
+      </div>
+
+      <div class="strip" style="margin-top:2.4rem">
+
+        <!-- ORIGIN -->
+        <div class="stop stop--bookend" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body">
+            <p class="bookend"><b>HELSINKI</b> · depart Jul 3 · Tallink Megastar foot-passenger ferry (~2h) · fold the bikes, carry them on free</p>
+          </div>
+        </div>
+
+        <!-- TALLINN -->
+        <article class="stop" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Tallinn</h3><span class="cc">EE</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">Arrive by ferry · Jul 3-6</p>
+            <dl class="facets">
+              <div class="facet"><dt>Science</dt><dd>Energy Discovery Centre &amp; PROTO; day-trip to Tartu for AHHAA, the biggest science centre in the Baltics.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Kadriorg Park.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The flat, separated Pirita seaside path.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Telliskivi &amp; Noblessner quarters; walk the medieval cobbles, don't ride them.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The National Library is closed for rebuild until ~2027 -- Riga and Vilnius carry the library load.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- RIGA -->
+        <article class="stop" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Riga</h3><span class="cc">LV</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">Direct Elron train Tallinn-Tartu-Riga (~6h, new in 2026) · Jul 6-9</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>Birkerts' "Castle of Light" National Library -- 14 levels, free. The Baltic library highlight.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The canal-belt green ring; the Mežaparks garden-city.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>A Sigulda / Gauja valley scenic-rail cycling day.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The compact old town.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- VILNIUS -->
+        <article class="stop" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Vilnius</h3><span class="cc">LT</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">Lux Express coach from Riga (~4h) · Jul 9-12</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>Vilnius University Library -- the baroque Smuglevičius Hall (weekdays).</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Energy &amp; Technology Museum, inside an old power station.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Bernardine Garden; Vingis Park.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Trakai lakeside day -- train out, ride the castle loop.</dd></div>
+              <div class="facet facet--wide"><dt>Car-free</dt><dd>The old town and the Užupis republic. Pivot point south.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- GDAŃSK -->
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Gdańsk</h3><span class="cc">PL</span>
+              <span class="nights">4 <span>nts</span></span>
+            </div>
+            <p class="arrive">Direct coach from Vilnius (~10½h) -- the one long travel day; book an early departure · Jul 12-16</p>
+            <dl class="facets">
+              <div class="facet"><dt>Science</dt><dd>Hevelianum on Gradowa Hill -- hands-on, plus a park and a viewpoint.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Motława and the Baltic coast paths.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The Długi Targ waterfront promenade.</dd></div>
+              <div class="facet"><dt>Day trips</dt><dd>Malbork castle and Sopot pier on the SKM line.</dd></div>
+              <div class="facet facet--wide"><dt>Why first</dt><dd>Gdańsk right after the Baltics keeps the whole route sweeping south -- no doubling back through Warsaw.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- WARSAW -->
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Warsaw</h3><span class="cc">PL</span>
+              <span class="nights">4 <span>nts</span></span>
+            </div>
+            <p class="arrive">EIP Pendolino from Gdańsk (~2h30) · Jul 16-20</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The BUW university library and its 2,000&nbsp;m² rooftop garden -- library and park at once.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Copernicus Science Centre -- 450+ exhibits.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The continuous car-free Vistula riverbank path.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The Old Town -- a meticulous post-war replica, read as a case study.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- KRAKÓW -->
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Kraków</h3><span class="cc">PL</span>
+              <span class="nights">6 <span>nts</span></span>
+            </div>
+            <p class="arrive">EIP Pendolino from Warsaw (~2h45) · Jul 20-26</p>
+            <dl class="facets">
+              <div class="facet facet--wide"><dt>Urbanism</dt><dd>Nowa Huta -- a planned Stalinist "ideal city." The most on-theme stop in Poland.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Planty -- a green ring that encircles the whole old town.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Vistula path out to Tyniec Abbey.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Europe's largest medieval market square; Kazimierz.</dd></div>
+              <div class="facet"><dt>Day trips</dt><dd>Wieliczka salt mine; Ojców valley.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- VIENNA -->
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Vienna</h3><span class="cc">AT</span>
+              <span class="nights">6 <span>nts</span></span>
+            </div>
+            <p class="arrive">ÖBB EuroCity from Kraków (~6h) · Jul 26-Aug 1</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Hauptbücherei -- a public library built over a road -- and the imperial Prunksaal.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Technisches Museum Wien.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Schönbrunn, the Prater, and the 21&nbsp;km car-free Donauinsel.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Danube EuroVelo 6 along the island.</dd></div>
+              <div class="facet facet--wide"><dt>Urbanism</dt><dd>Red Vienna's Gemeindebauten -- Karl-Marx-Hof and a century of living commons housing.</dd></div>
+              <div class="facet facet--wide"><dt>Day trips</dt><dd>Bratislava by the Twin City Liner boat; the Wachau Danube cycle valley.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- LJUBLJANA -->
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Ljubljana</h3><span class="cc">SI</span>
+              <span class="nights">6 <span>nts</span></span>
+            </div>
+            <p class="arrive">EC Emona from Vienna, over the UNESCO Semmering (~6h) · Aug 1-7</p>
+            <dl class="facets">
+              <div class="facet facet--wide"><dt>Urbanism</dt><dd>Europe's most complete pedestrianised old town -- a built woonerf, the city's "Vision" car removal.</dd></div>
+              <div class="facet"><dt>Library</dt><dd>Plečnik's NUK -- the dark-stairs-into-light Reading Room (confirm summer hours).</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Tivoli Park.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The car-free Ljubljanica embankment; BicikeLJ bikeshare.</dd></div>
+              <div class="facet facet--wide"><dt>Day trips</dt><dd>Bled and Bohinj (Triglav NP; the 1906 Bohinj Railway, 120 this year); Postojna cave.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- SALZBURG -->
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Salzburg</h3><span class="cc">AT</span>
+              <span class="nights">1 <span>nt</span></span>
+            </div>
+            <p class="arrive">Scenic Ljubljana-Villach-Salzburg over the Tauern Alps · Aug 7-8</p>
+            <dl class="facets">
+              <div class="facet"><dt>Garden</dt><dd>The Mirabellgarten.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Salzach riverside path.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The UNESCO Altstadt.</dd></div>
+              <div class="facet facet--wide"><dt>Note</dt><dd>A gateway pause -- the Alpine train getting here is the point. First thing to cut in peak Festival season.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- MUNICH -->
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Munich</h3><span class="cc">DE</span>
+              <span class="nights">5 <span>nts</span></span>
+            </div>
+            <p class="arrive">Tauern line from Salzburg · Aug 8-13</p>
+            <dl class="facets">
+              <div class="facet facet--wide"><dt>Science</dt><dd>The Deutsches Museum -- the world's largest science museum. Give it a full day.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Englischer Garten.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The renaturalised Isar greenway.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Marienplatz and the Altstadt.</dd></div>
+              <div class="facet facet--wide"><dt>Day trips</dt><dd>The Zugspitze / Garmisch on the Werdenfelsbahn; Tegernsee; the Starnberger See.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- STUTTGART -->
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Stuttgart</h3><span class="cc">DE</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">ICE from Munich · Aug 13-15</p>
+            <dl class="facets">
+              <div class="facet facet--wide"><dt>Library</dt><dd>Eun Young Yi's white-cube Stadtbibliothek -- the cathedral-like "Heart" atrium. The best library building on the way home.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Schlossgarten green-U.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The Königstraße boulevard.</dd></div>
+              <div class="facet facet--flag"><dt>Note</dt><dd>Hilly -- keep the riding to the valley floor. First night to trim for buffer.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- RHINE VALLEY -->
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Rhine Valley</h3><span class="cc">DE</span>
+              <span class="nights">4 <span>nts</span></span>
+            </div>
+            <p class="arrive">Base in Bacharach or Boppard · Aug 15-19</p>
+            <dl class="facets">
+              <div class="facet facet--wide"><dt>Countryside</dt><dd>The UNESCO gorge -- ~40 castles, vineyards and the Loreley. The deliberate no-library counterweight.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The flat, car-free EuroVelo 15 along the river -- ride one way, train or ferry back.</dd></div>
+              <div class="facet"><dt>Scenic</dt><dd>The West Rhine railway. Force the route "via Koblenz" to stay on the river.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- COLOGNE -->
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Cologne</h3><span class="cc">DE</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">Along the Rhine, "via Koblenz" · Aug 19-21</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The maker-focused Stadtbibliothek.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Rheinpark.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>EuroVelo 15 across the Hohenzollern bridge.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The Dom forecourt.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- TERMINUS -->
+        <div class="stop stop--bookend stop--end" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body">
+            <p class="bookend"><b>ROTTERDAM</b> · arrive the Netherlands Aug 21 · fast ICE Cologne→Rotterdam (~3h) · two nights of buffer in hand</p>
+          </div>
+        </div>
+
+      </div><!-- /strip -->
+    </div>
+  </section>
+
+  <!-- ===================== BROMPTONS ===================== -->
+  <section class="band" id="bikes">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">The one rule that unlocks it all</p>
+          <h2>The Bromptons travel as luggage</h2>
+          <p>Folded and bagged, a Brompton boards every train and ferry as free hand luggage -- no bike reservation, no fee, no refusal. That single move is what makes the whole rail plan work.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="panel reveal">
+          <h3>The handling routine</h3>
+          <ul class="rules" style="--accent:var(--baltics)">
+            <li><span></span><div><b>Fold and cover, every time.</b> The cover is what turns "a bike" into "carry-on." It's effectively mandatory on the Polish Pendolinos and the safe default everywhere else.</div></li>
+            <li><span></span><div><b>Detach the Vincita rear bags before folding.</b> The fold is cleaner and lighter as two pieces; the front carrier-block bag is your grab-and-go.</div></li>
+            <li><span></span><div><b>Target step-free stations.</b> Loaded and front-heavy, the folded bike is a lift onto high luggage racks and over ferry stairs.</div></li>
+            <li><span></span><div><b>Don't ride the old-town cobbles</b> on 16-inch wheels -- walk and fold there. Save the riding for the waterfront and river paths.</div></li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <h3>The three legs that aren't trains</h3>
+          <ul class="rules" style="--accent:var(--poland)">
+            <li><span></span><div><b>Helsinki → Tallinn ferry.</b> Book the cheap foot-passenger fare and carry the folded bikes on free -- never the vehicle/bicycle ticket.</div></li>
+            <li><span></span><div><b>Riga → Vilnius coach</b> (~4h) and <b>Vilnius → Gdańsk coach</b> (~10½h, only ~2/day). Reserve the free bicycle ticket as insurance, and book the Gdańsk run early.</div></li>
+            <li><span></span><div><b>Never roll an unfolded bike onto a Polish EIP platform</b> expecting to pay on board -- they don't sell bike tickets onboard. Folded and bagged sidesteps all of it.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TICKETS ===================== -->
+  <section class="band" id="tickets">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">Tickets &amp; passes</p>
+          <h2>One pass, a few reservations</h2>
+          <p>The pass covers the trains; a handful of high-speed legs need a paid seat reservation on top. Bikes cost nothing, anywhere.</p>
+        </div>
+      </div>
+
+      <div class="grid2" style="align-items:start">
+        <div class="reveal" style="display:grid;gap:1.2rem">
+          <div class="passnote">
+            <span class="k">Eurail Global Pass · 2-month continuous · 2nd class</span>
+            <p>One each, mobile. The 15-day flexi is too small once you count ten intercity legs plus all the covered day trips. Second class -- the free-bike rule is identical in both, so there's no upside to first.</p>
+          </div>
+          <div class="panel">
+            <h3>Not on Eurail -- book direct</h3>
+            <ul class="rules" style="--accent:var(--baltics)">
+              <li><span></span><div>Helsinki → Tallinn <b>ferry</b> (foot passenger)</div></li>
+              <li><span></span><div>Riga → Vilnius <b>coach</b> (~4h)</div></li>
+              <li><span></span><div>Vilnius → Gdańsk <b>coach</b> (~10½h, limited departures)</div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <table class="tt">
+            <caption>Seat reservations to pre-book</caption>
+            <thead><tr><th>Leg</th><th>Train</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Gdańsk → Warsaw</td><td>EIP Pendolino</td><td class="req req--must">Required</td></tr>
+              <tr><td>Warsaw → Kraków</td><td>EIP Pendolino</td><td class="req req--must">Required</td></tr>
+              <tr><td>Kraków → Vienna</td><td>ÖBB EuroCity</td><td class="req req--rec">Advised</td></tr>
+              <tr><td>Vienna → Ljubljana</td><td>EC Emona</td><td class="req req--rec">Advised</td></tr>
+              <tr><td>Munich → Stuttgart</td><td>ICE</td><td class="req req--rec">Advised</td></tr>
+              <tr><td>Cologne → Rotterdam</td><td>ICE</td><td class="req req--rec">Advised</td></tr>
+            </tbody>
+          </table>
+          <p style="margin:.9rem 0 0;color:var(--muted);font-size:.86rem;font-family:var(--mono)">~€3-5 each · book on intercity.pl &amp; the Eurail app · peak-summer quotas sell out early</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCENIC ===================== -->
+  <section class="band" id="scenic">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">Worth riding in daylight</p>
+          <h2>Six trains to savour</h2>
+          <p>Not just connections -- these are the journey. Sit by the window and time them for the light.</p>
+        </div>
+      </div>
+
+      <div class="scenic reveal">
+        <div class="scene" style="--accent:var(--baltics)">
+          <span class="leg-from">Tallinn → Tartu → Riga</span>
+          <h4>The new Baltic line</h4>
+          <p>Direct since January 2026, south through Estonian forest and bog. Break it at Tartu for the science centre.</p>
+        </div>
+        <div class="scene" style="--accent:var(--south)">
+          <span class="leg-from">Vienna → Ljubljana</span>
+          <h4>The Semmering</h4>
+          <p>The UNESCO mountain railway. Check your train runs the original viaduct line, not the new base tunnel -- if it tunnels, ride the historic stretch on a regional REX.</p>
+        </div>
+        <div class="scene" style="--accent:var(--south)">
+          <span class="leg-from">Day trip from Ljubljana</span>
+          <h4>The Bohinj Railway</h4>
+          <p>1906, turning 120 this year -- down the Bača and Soča valleys to Nova Gorica. Heritage steam on select summer dates.</p>
+        </div>
+        <div class="scene" style="--accent:var(--south)">
+          <span class="leg-from">Ljubljana → Villach → Salzburg</span>
+          <h4>The Tauern Alps</h4>
+          <p>The upper Sava, the Karawanken tunnel, then high Alpine scenery. Sit on the right leaving Villach.</p>
+        </div>
+        <div class="scene" style="--accent:var(--rhine)">
+          <span class="leg-from">Day trip from Munich</span>
+          <h4>The Werdenfelsbahn</h4>
+          <p>Up to Garmisch and the Zugspitze for the Bavarian Alps.</p>
+        </div>
+        <div class="scene" style="--accent:var(--rhine)">
+          <span class="leg-from">Mainz → Koblenz → Cologne</span>
+          <h4>The West Rhine</h4>
+          <p>The castles, vineyards and the Loreley. Force the route "via Koblenz" -- the default fast train takes the inland tunnel and misses the river entirely.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BEFORE YOU GO ===================== -->
+  <section class="band" id="before">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">Before you go</p>
+          <h2>One deadline, five checks</h2>
+        </div>
+      </div>
+
+      <div class="alert reveal">
+        <span class="alert__tag">By Jun 30</span>
+        <div>
+          <b>Buy the Eurail passes now.</b>
+          <p>The 15% discount runs through June 30. Lock the passes even before the dates are final.</p>
+        </div>
+      </div>
+
+      <div class="panel reveal">
+        <ul class="checks">
+          <li><div><b>Confirm NUK's Reading Room hours</b> in Ljubljana -- it's only reliably open in the university summer break or on a guided tour. The one stop that can disappoint.</div></li>
+          <li><div><b>Check the Vienna → Ljubljana service</b> runs the original Semmering viaduct, not the base tunnel -- or plan a regional leg over the old line.</div></li>
+          <li><div><b>Book the Vilnius → Gdańsk coach</b> ahead and take an early departure, so the long day still ends in Gdańsk that evening.</div></li>
+          <li><div><b>Pre-book the two required Polish reservations</b> (Gdańsk → Warsaw, Warsaw → Kraków) the moment dates are set.</div></li>
+          <li><div><b>Hold the two spare nights.</b> The plan lands Aug 21 -- keep the buffer against a missed connection on the long German return, or spend it east.</div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Depth over breadth, weighted east -- long stays where the going is hardest to reach, a fast scenic run home through Germany. Helsinki to Rotterdam, no flights.</p>
+    <span class="mono">Jul 3 - Aug 21 · 2026</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  document.documentElement.classList.add('js');
+
+  // Orchestrated reveal: each station and panel slides in as the line reaches it
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.stop, .reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.stop, .reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // Scrollspy for the sticky nav
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var id = '#' + e.target.id;
+          links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === id); });
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    sections.forEach(function(s){ if(s) spy.observe(s); });
+  }
+
+  // ---- Geographic route map (Leaflet + CARTO light basemap) ----
+  (function(){
+    if(typeof L === 'undefined' || !document.getElementById('map')) return;
+    var legs = [
+      {color:'#176B7C', pts:[['Helsinki',60.169,24.938],['Tallinn',59.437,24.754],['Riga',56.949,24.105],['Vilnius',54.687,25.280]]},
+      {color:'#B0302A', pts:[['Vilnius',54.687,25.280],['Gdańsk',54.352,18.646],['Warsaw',52.230,21.012],['Kraków',50.065,19.945]]},
+      {color:'#2D5E4C', pts:[['Kraków',50.065,19.945],['Vienna',48.208,16.373],['Ljubljana',46.056,14.506],['Salzburg',47.809,13.055]]},
+      {color:'#8A5A14', pts:[['Salzburg',47.809,13.055],['Munich',48.135,11.582],['Stuttgart',48.776,9.182],['Rhine Valley',50.057,7.770],['Cologne',50.938,6.960],['Rotterdam',51.924,4.478]]}
+    ];
+    var map = L.map('map', {scrollWheelZoom:false, zoomControl:true, attributionControl:true});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution:'&copy; OpenStreetMap, &copy; CARTO', subdomains:'abcd', maxZoom:18
+    }).addTo(map);
+    var bounds = [], seen = {};
+    legs.forEach(function(leg){
+      L.polyline(leg.pts.map(function(p){ return [p[1],p[2]]; }),
+        {color:leg.color, weight:4, opacity:.9, lineJoin:'round'}).addTo(map);
+      leg.pts.forEach(function(p){
+        bounds.push([p[1],p[2]]);
+        if(seen[p[0]]) return; seen[p[0]] = true;
+        var end = (p[0]==='Helsinki' || p[0]==='Rotterdam');
+        L.circleMarker([p[1],p[2]], {
+          radius: end?7:5.5, color:'#fff', weight:2, fillColor:leg.color, fillOpacity:1
+        }).addTo(map).bindTooltip(p[0], {permanent:true, direction:'right', className:'route-label', offset:[7,0]});
+      });
+    });
+    map.fitBounds(bounds, {padding:[38,38]});
+    setTimeout(function(){ map.invalidateSize(); map.fitBounds(bounds, {padding:[38,38]}); }, 250);
+  })();
+</script>
+</body>
+</html>
