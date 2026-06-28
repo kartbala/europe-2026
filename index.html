@@ -341,6 +341,46 @@
   .checks li::before{content:"☐";color:var(--muted);font-size:1.1rem;line-height:1.2}
   .checks b{font-weight:700}
 
+  /* ---------- WHERE TO STAY ---------- */
+  .stays{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:640px){ .stays{grid-template-columns:1fr 1fr} }
+  @media(min-width:1000px){ .stays{grid-template-columns:1fr 1fr 1fr} }
+  .stay{
+    background:var(--card);border:1px solid var(--line);border-left:4px solid var(--leg);
+    border-radius:14px;padding:1.05rem 1.15rem;--leg:var(--rail);
+  }
+  .stay[data-leg=baltics]{--leg:var(--baltics)}
+  .stay[data-leg=poland]{--leg:var(--poland)}
+  .stay[data-leg=south]{--leg:var(--south)}
+  .stay[data-leg=rhine]{--leg:var(--rhine)}
+  .stay h4{
+    font-family:var(--display);font-weight:700;font-size:1.18rem;letter-spacing:-.01em;
+    margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;
+  }
+  .stay h4 .n{font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--muted);white-space:nowrap}
+  .stay .hood{
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--leg);margin:.35rem 0 .7rem;
+  }
+  .stay ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+  .stay li{font-size:.93rem;line-height:1.4}
+  .stay li b{font-weight:700}
+  .stay li em{display:block;color:var(--muted);font-size:.83rem;font-style:normal;margin-top:.05rem}
+
+  /* ---------- BUDGET ---------- */
+  .pricetag{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 1rem;
+    background:var(--ink);color:#F3F2EC;border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.5rem;
+  }
+  .pricetag b{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,5vw,2.5rem);letter-spacing:-.02em;line-height:1}
+  .pricetag span{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#CFD2C9}
+  .disc{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin:.9rem 0 0;line-height:1.55}
+  .fares{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+  .fares li{display:flex;justify-content:space-between;gap:1rem;font-size:.95rem;border-bottom:1px solid var(--line);padding-bottom:.5rem}
+  .fares li:last-child{border-bottom:none}
+  .fares .amt{font-family:var(--mono);font-weight:700;white-space:nowrap}
+  .tt td.amt{text-align:right;font-family:var(--mono);font-weight:700;white-space:nowrap}
+
   /* ---------- FOOTER ---------- */
   .foot{border-top:1px solid var(--line);margin-top:clamp(40px,7vw,80px)}
   .foot .wrap{padding-block:clamp(32px,6vw,56px);display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:baseline;justify-content:space-between}
@@ -414,8 +454,10 @@
 <nav class="nav" aria-label="Sections">
   <div class="nav__inner">
     <a href="#route">The Line</a>
+    <a href="#stays">Where to Stay</a>
     <a href="#bikes">The Bromptons</a>
-    <a href="#tickets">Tickets &amp; Passes</a>
+    <a href="#tickets">Tickets</a>
+    <a href="#budget">Budget</a>
     <a href="#scenic">Scenic Trains</a>
     <a href="#before">Before You Go</a>
   </div>
@@ -712,6 +754,129 @@
     </div>
   </section>
 
+  <!-- ===================== WHERE TO STAY ===================== -->
+  <section class="band" id="stays">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">Where to stay</p>
+          <h2>A characterful base in each city</h2>
+          <p>Picked for walkable, station-near neighbourhoods where two folded Bromptons can sleep indoors -- design hostels and boutique places over chains. Names are starting points; confirm current operation and price before booking.</p>
+        </div>
+      </div>
+
+      <div class="stays reveal">
+        <article class="stay" data-leg="baltics">
+          <h4>Tallinn <span class="n">3 nts</span></h4>
+          <p class="hood">Base · Kalamaja / Telliskivi</p>
+          <ul>
+            <li><b>Hektor Container Hotel</b><em>Railway-depot container rooms by Balti Jaam station -- folded bikes stay in the room.</em></li>
+            <li><b>Nunne Boutique Hotel</b><em>Design hotel by the medieval wall; secure bike storage.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="baltics">
+          <h4>Riga <span class="n">3 nts</span></h4>
+          <p class="hood">Base · Quiet Centre</p>
+          <ul>
+            <li><b>Mercure Riga Centre</b><em>Art Deco building 200 m from Central Station.</em></li>
+            <li><b>Central Hostel</b><em>Boutique hostel with locked-courtyard bike parking.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="baltics">
+          <h4>Vilnius <span class="n">3 nts</span></h4>
+          <p class="hood">Base · Station District / Old Town</p>
+          <ul>
+            <li><b>Downtown Forest Hostel</b><em>Artsy garden hostel by Užupis; free secure bike parking.</em></li>
+            <li><b>Old Town Trio</b><em>Modern boutique near the station with bike parking.</em></li>
+          </ul>
+        </article>
+
+        <article class="stay" data-leg="poland">
+          <h4>Gdańsk <span class="n">4 nts</span></h4>
+          <p class="hood">Base · Śródmieście (Old Town)</p>
+          <ul>
+            <li><b>PURO Gdańsk Stare Miasto</b><em>Bike-friendly design hotel; indoor folded-bike storage.</em></li>
+            <li><b>La Guitarra Hostel</b><em>Music-themed boutique near the river and station.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="poland">
+          <h4>Warsaw <span class="n">4 nts</span></h4>
+          <p class="hood">Base · Powiśle</p>
+          <ul>
+            <li><b>Barceló Warsaw Powiśle</b><em>Industrial-chic rooms in a converted power station.</em></li>
+            <li><b>PURO Warszawa Centrum</b><em>Sleek, central, bike-friendly.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="poland">
+          <h4>Kraków <span class="n">6 nts</span></h4>
+          <p class="hood">Base · Kazimierz</p>
+          <ul>
+            <li><b>PURO Kraków Kazimierz</b><em>Design hotel with a cycling program and secure storage.</em></li>
+            <li><b>Hostel Deco</b><em>Art Deco hostel near the station; garden bike storage.</em></li>
+          </ul>
+        </article>
+
+        <article class="stay" data-leg="south">
+          <h4>Vienna <span class="n">6 nts</span></h4>
+          <p class="hood">Base · Neubau (7th)</p>
+          <ul>
+            <li><b>JO&amp;JOE Vienna</b><em>Design hostel inside Westbahnhof; room for folded bikes.</em></li>
+            <li><b>Boutiquehotel Stadthalle</b><em>Eco hotel near Westbahnhof with its own bike garage.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="south">
+          <h4>Ljubljana <span class="n">6 nts</span></h4>
+          <p class="hood">Base · Center / Metelkova</p>
+          <ul>
+            <li><b>Hostel Celica</b><em>Art hostel in a former prison by the station; indoor bike storage.</em></li>
+            <li><b>NEU Residences</b><em>Minimalist design apartments near the station.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="south">
+          <h4>Salzburg <span class="n">1 nt</span></h4>
+          <p class="hood">Base · Elisabeth-Vorstadt</p>
+          <ul>
+            <li><b>Adlerhof</b><em>"Bed+Bike" B&amp;B 300 m from the station; lockable storage.</em></li>
+            <li><b>The Keep Eco Rooms</b><em>Sustainable design rooms near the station.</em></li>
+          </ul>
+        </article>
+
+        <article class="stay" data-leg="rhine">
+          <h4>Munich <span class="n">5 nts</span></h4>
+          <p class="hood">Base · Ludwigsvorstadt</p>
+          <ul>
+            <li><b>25hours The Royal Bavarian</b><em>Quirky design hotel at the Hauptbahnhof; indoor storage.</em></li>
+            <li><b>Wombat's City Hostel</b><em>Glass-roofed courtyard hostel by the station.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="rhine">
+          <h4>Stuttgart <span class="n">2 nts</span></h4>
+          <p class="hood">Base · Stuttgart-Mitte</p>
+          <ul>
+            <li><b>Jaz in the City</b><em>Music-themed design hotel next to the cube City Library.</em></li>
+            <li><b>EmiLu Design Hotel</b><em>Owner-run design hotel; underground bike spaces.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="rhine">
+          <h4>Rhine Valley <span class="n">4 nts</span></h4>
+          <p class="hood">Base · Bacharach Altstadt</p>
+          <ul>
+            <li><b>Rhein-Hotel Bacharach</b><em>Built into the city wall; lockable bike garage and rental bikes.</em></li>
+            <li><b>Hotel Kranenturm</b><em>Rooms in a historic watchtower near the station; bike garage.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="rhine">
+          <h4>Cologne <span class="n">2 nts</span></h4>
+          <p class="hood">Base · Ehrenfeld / Belgisches Viertel</p>
+          <ul>
+            <li><b>Hostel die Wohngemeinschaft</b><em>Creative themed design hostel in Belgisches Viertel.</em></li>
+            <li><b>Weltempfänger Hostel</b><em>Relaxed design hostel in Ehrenfeld with a veg cafe.</em></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== BROMPTONS ===================== -->
   <section class="band" id="bikes">
     <div class="wrap">
@@ -761,7 +926,7 @@
         <div class="reveal" style="display:grid;gap:1.2rem">
           <div class="passnote">
             <span class="k">Eurail Global Pass · 2-month continuous · 2nd class</span>
-            <p>One each, mobile. The 15-day flexi is too small once you count ten intercity legs plus all the covered day trips. Second class -- the free-bike rule is identical in both, so there's no upside to first.</p>
+            <p>About <b>€826 per person</b> (~€1,652 the pair), mobile. The 15-day flexi (~€553) is too small once you count ten intercity legs plus all the covered day trips. Second class -- the free-bike rule is identical in both, so there's no upside to first.</p>
           </div>
           <div class="panel">
             <h3>Not on Eurail -- book direct</h3>
@@ -776,17 +941,67 @@
         <div class="panel reveal">
           <table class="tt">
             <caption>Seat reservations to pre-book</caption>
-            <thead><tr><th>Leg</th><th>Train</th><th>Status</th></tr></thead>
+            <thead><tr><th>Leg</th><th>Status</th><th>Fee</th></tr></thead>
             <tbody>
-              <tr><td>Gdańsk → Warsaw</td><td>EIP Pendolino</td><td class="req req--must">Required</td></tr>
-              <tr><td>Warsaw → Kraków</td><td>EIP Pendolino</td><td class="req req--must">Required</td></tr>
-              <tr><td>Kraków → Vienna</td><td>ÖBB EuroCity</td><td class="req req--rec">Advised</td></tr>
-              <tr><td>Vienna → Ljubljana</td><td>EC Emona</td><td class="req req--rec">Advised</td></tr>
-              <tr><td>Munich → Stuttgart</td><td>ICE</td><td class="req req--rec">Advised</td></tr>
-              <tr><td>Cologne → Rotterdam</td><td>ICE</td><td class="req req--rec">Advised</td></tr>
+              <tr><td>Gdańsk → Warsaw <small style="color:var(--muted)">EIP</small></td><td class="req req--must">Required</td><td class="amt">€10</td></tr>
+              <tr><td>Warsaw → Kraków <small style="color:var(--muted)">EIP</small></td><td class="req req--must">Required</td><td class="amt">€10</td></tr>
+              <tr><td>Kraków → Vienna <small style="color:var(--muted)">EC</small></td><td class="req req--must">Required</td><td class="amt">€3-5.50</td></tr>
+              <tr><td>Vienna → Ljubljana <small style="color:var(--muted)">EC Emona</small></td><td class="req req--rec">Advised</td><td class="amt">€3</td></tr>
+              <tr><td>Munich → Stuttgart <small style="color:var(--muted)">ICE</small></td><td class="req req--rec">Advised</td><td class="amt">€5.50</td></tr>
+              <tr><td>Cologne → Rotterdam <small style="color:var(--muted)">ICE</small></td><td class="req req--must">Req. (summer)</td><td class="amt">€5.50</td></tr>
             </tbody>
           </table>
-          <p style="margin:.9rem 0 0;color:var(--muted);font-size:.86rem;font-family:var(--mono)">~€3-5 each · book on intercity.pl &amp; the Eurail app · peak-summer quotas sell out early</p>
+          <p style="margin:.9rem 0 0;color:var(--muted);font-size:.86rem;font-family:var(--mono)">~€70-95 total for two · book on intercity.pl &amp; the Eurail app · peak-summer quotas sell out early</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BUDGET ===================== -->
+  <section class="band" id="budget">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">What it costs</p>
+          <h2>The budget, roughly</h2>
+          <p>2026 estimates for two, mid-range, no flights. The pass price is verified; the rest are planning ranges to confirm at booking.</p>
+        </div>
+      </div>
+
+      <div class="pricetag reveal">
+        <b>≈ €13,100-19,200</b><span>total · two travellers · 49 nights</span>
+      </div>
+
+      <div class="grid2" style="align-items:start">
+        <div class="panel reveal">
+          <h3>Where the money goes</h3>
+          <ul class="fares">
+            <li><span>Eurail passes (2 × €826)</span><span class="amt">€1,652</span></li>
+            <li><span>Seat reservations</span><span class="amt">€70-95</span></li>
+            <li><span>Ferry + 2 coaches</span><span class="amt">€170-300</span></li>
+            <li><span>Lodging, 49 nights</span><span class="amt">€6,000-9,400</span></li>
+            <li><span>Food · transit · admissions</span><span class="amt">€5,200-7,700</span></li>
+          </ul>
+          <p class="disc">Pass price verified at €826 pp (2-month continuous, 2nd class). Folded bikes ride free. Food assumes vegetarian, mixing cafes with markets and bakeries.</p>
+        </div>
+
+        <div class="panel reveal">
+          <h3>Not on the pass</h3>
+          <ul class="fares">
+            <li><span>Helsinki → Tallinn ferry (foot)</span><span class="amt">€30-60</span></li>
+            <li><span>Riga → Vilnius coach</span><span class="amt">€15-30</span></li>
+            <li><span>Vilnius → Gdańsk coach</span><span class="amt">€36-60</span></li>
+          </ul>
+          <h3 style="margin-top:1.5rem">Lodging by region <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--muted)">/ NIGHT · MID-RANGE DOUBLE</span></h3>
+          <table class="tt">
+            <tbody>
+              <tr><td>Baltics — Tallinn / Riga / Vilnius</td><td class="amt">€80-150</td></tr>
+              <tr><td>Poland — Gdańsk / Warsaw / Kraków</td><td class="amt">€100-170</td></tr>
+              <tr><td>Vienna / Ljubljana</td><td class="amt">€140-230</td></tr>
+              <tr><td>Salzburg / Munich (peak)</td><td class="amt">€160-260</td></tr>
+              <tr><td>Stuttgart / Rhine / Cologne</td><td class="amt">€120-210</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -844,26 +1059,42 @@
       <div class="sechead reveal">
         <div>
           <p class="eyebrow">Before you go</p>
-          <h2>One deadline, five checks</h2>
+          <h2>Good to know</h2>
+          <p>The practical layer -- money, plugs, data -- plus the handful of things this plan depends on.</p>
         </div>
       </div>
 
       <div class="alert reveal">
-        <span class="alert__tag">By Jun 30</span>
+        <span class="alert__tag">Buy early</span>
         <div>
-          <b>Buy the Eurail passes now.</b>
-          <p>The 15% discount runs through June 30. Lock the passes even before the dates are final.</p>
+          <b>Lock the Eurail passes before you firm up dates.</b>
+          <p>Eurail often runs an early-summer promo (recently around 10-15%) -- check eurail.com for the current offer. The pass guarantees travel; the few required reservations are booked separately.</p>
         </div>
       </div>
 
-      <div class="panel reveal">
-        <ul class="checks">
-          <li><div><b>Confirm NUK's Reading Room hours</b> in Ljubljana -- it's only reliably open in the university summer break or on a guided tour. The one stop that can disappoint.</div></li>
-          <li><div><b>Check the Vienna → Ljubljana service</b> runs the original Semmering viaduct, not the base tunnel -- or plan a regional leg over the old line.</div></li>
-          <li><div><b>Book the Vilnius → Gdańsk coach</b> ahead and take an early departure, so the long day still ends in Gdańsk that evening.</div></li>
-          <li><div><b>Pre-book the two required Polish reservations</b> (Gdańsk → Warsaw, Warsaw → Kraków) the moment dates are set.</div></li>
-          <li><div><b>Hold the two spare nights.</b> The plan lands Aug 21 -- keep the buffer against a missed connection on the long German return, or spend it east.</div></li>
-        </ul>
+      <div class="grid2" style="align-items:start">
+        <div class="panel reveal">
+          <h3>Five checks</h3>
+          <ul class="checks">
+            <li><div><b>Confirm NUK's Reading Room hours</b> in Ljubljana -- it's only reliably open in the university summer break or on a guided tour. The one stop that can disappoint.</div></li>
+            <li><div><b>Check the Vienna → Ljubljana service</b> runs the original Semmering viaduct, not the base tunnel -- or plan a regional leg over the old line.</div></li>
+            <li><div><b>Book the Vilnius → Gdańsk coach</b> ahead and take an early departure, so the long day still ends in Gdańsk that evening.</div></li>
+            <li><div><b>Pre-book the two required Polish reservations</b> (Gdańsk → Warsaw, Warsaw → Kraków) the moment dates are set.</div></li>
+            <li><div><b>Hold the two spare nights.</b> The plan lands Aug 21 -- keep the buffer against a missed connection on the long German return, or spend it east.</div></li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <h3>Practicalities</h3>
+          <ul class="rules" style="--accent:var(--south)">
+            <li><span></span><div><b>Money.</b> Euro everywhere except <b>Poland</b> (złoty). Cards work nearly everywhere; carry a little cash for kiosks and station lockers.</div></li>
+            <li><span></span><div><b>Plugs.</b> Type C/F, 230V -- one EU adapter covers the whole trip; most chargers are already dual-voltage.</div></li>
+            <li><span></span><div><b>Data.</b> One Europe-wide eSIM (Airalo / Nomad / Ubigi) roams across every country on the route -- simpler than swapping SIMs.</div></li>
+            <li><span></span><div><b>Water &amp; tips.</b> Tap water is safe throughout. Tipping is light -- round up, or 5-10% for good restaurant service.</div></li>
+            <li><span></span><div><b>Closures.</b> Sunday retail is shut in Germany and Austria (limited in Poland); many museums close Mondays; expect some August holiday gaps.</div></li>
+            <li><span></span><div><b>Heat &amp; lockers.</b> Late July can hit 30-35°C, so ride early; big stations have left-luggage lockers (check one fits a folded Brompton).</div></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
