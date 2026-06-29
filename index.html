@@ -202,7 +202,7 @@
     border:1px solid var(--line);border-radius:16px;overflow:hidden;
     box-shadow:0 14px 36px -30px rgba(22,24,28,.5);background:var(--card);
   }
-  #map{height:clamp(340px,56vh,560px);width:100%;background:#E9EBE6;z-index:1}
+  #map,#map-breadth{height:clamp(340px,56vh,560px);width:100%;background:#E9EBE6;z-index:1}
   .leaflet-container{font-family:var(--body);background:#E9EBE6}
   .mapcap{
     font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
@@ -469,6 +469,7 @@
 <nav class="nav" aria-label="Sections">
   <div class="nav__inner">
     <a href="#route">The Line</a>
+    <a href="#breadth">Breadth Plan</a>
     <a href="#stays">Where to Stay</a>
     <a href="#bikes">The Bromptons</a>
     <a href="#tickets">Tickets</a>
@@ -762,6 +763,468 @@
           <div class="stop__marker"><span class="stop__node"></span></div>
           <div class="stop__body">
             <p class="bookend"><b>ROTTERDAM</b> · arrive the Netherlands Aug 21 · fast ICE Cologne→Rotterdam (~3h) · two nights of buffer in hand</p>
+          </div>
+        </div>
+
+      </div><!-- /strip -->
+    </div>
+  </section>
+
+  <!-- ===================== BREADTH ALTERNATIVE ===================== -->
+  <section class="band" id="breadth">
+    <div class="wrap">
+      <div class="sechead reveal">
+        <div>
+          <p class="eyebrow">The road not taken</p>
+          <h2>The breadth alternative</h2>
+          <p>Same ferry out of Helsinki, same 49 nights, same arrival in Rotterdam -- but run for reach instead of depth. Twenty-one short stops in place of thirteen long ones, adding Czechia and Slovakia and a string of mid-size cities the chosen line skips. We weighed it and chose depth; this is what breadth would have looked like.</p>
+        </div>
+      </div>
+
+      <div class="ticket reveal" role="group" aria-label="Breadth compared with the chosen depth plan" style="margin-top:0">
+        <div class="ticket__row">
+          <div class="ticket__end"><small>The chosen line</small><b>13 stops · depth</b></div>
+          <div class="ticket__mid" aria-hidden="true"><span class="seg"></span> OR <span class="seg"></span></div>
+          <div class="ticket__end" style="text-align:right"><small>This alternative</small><b>21 stops · breadth</b></div>
+        </div>
+        <div class="ticket__stats">
+          <div><b>21</b><small>Stops</small></div>
+          <div><b>9</b><small>Countries</small></div>
+          <div><b>2-3</b><small>Nights each</small></div>
+          <div><b>49</b><small>Nights</small></div>
+          <div><b>0</b><small>Flights</small></div>
+        </div>
+      </div>
+
+      <figure class="mapwrap" style="margin-top:2.4rem">
+        <div id="map-breadth" role="img" aria-label="Map of the breadth-alternative route from Helsinki to Rotterdam with 21 station stops in four leg colours"></div>
+        <figcaption class="mapcap">
+          <span>Helsinki → Rotterdam · 21 stops · no flights</span>
+          <span>Schematic -- straight lines between stations</span>
+        </figcaption>
+      </figure>
+
+      <div class="legend reveal" role="list" aria-label="Route legs">
+        <span role="listitem"><i style="background:var(--baltics)"></i>Baltics</span>
+        <span role="listitem"><i style="background:var(--poland)"></i>Poland</span>
+        <span role="listitem"><i style="background:var(--south)"></i>Central &amp; Alpine</span>
+        <span role="listitem"><i style="background:var(--rhine)"></i>Germany &amp; the Rhine</span>
+      </div>
+
+      <div class="strip" style="margin-top:2.4rem">
+
+        <!-- ORIGIN -->
+        <div class="stop stop--bookend" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body">
+            <p class="bookend"><b>HELSINKI</b> · depart Jul 3 · Tallink Megastar foot-passenger ferry (~2h) · same bikes, same pass</p>
+          </div>
+        </div>
+
+        <article class="stop" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Tallinn</h3><span class="cc">EE</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">Tallink Megastar fast ferry from Helsinki (~2h) · Jul 3-6</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>Tallinn Central Library (Tallinna Keskraamatukogu) keeps its main Sudalinna site at Estonia pst 8 open on weekdays until 20:00, with a full Estonian-literature collection.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Energy Discovery Centre (Energia avastuskeskus), set inside a 100-year-old power plant on the Old Town-Kalamaja edge, runs daily Tesla-coil lightning shows plus a planetarium.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Tallinn Botanic Garden in Pirita, Estonia's largest with over 6,000 plant species, sits beside the TV Tower and opens daily 10:00 to 20:00.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The flat seaside Pirita cycle path runs from the passenger port through Kadriorg Park and the Song Festival Grounds out to Pirita beach.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Tallinn's medieval Old Town (Vanalinn), a UNESCO core of cobbled pedestrian lanes around Raekoja plats, keeps out nearly all car traffic.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The National Library of Estonia (Rahvusraamatukogu) on Tonismagi is closed for reconstruction and is not due to fully reopen until May 2027.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Tartu</h3><span class="cc">EE</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">Elron Intercity train from Tallinn (~2h15m) · Jul 6-8</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The University of Tartu Library at W. Struve 1 is a modern academic library open Mon-Fri 10-21 and weekends 12-18, with quiet reading rooms open to drop-in visitors.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Science Centre AHHAA on the riverbank at Sadama 1 is the biggest science centre in the Baltics, with 170-plus hands-on exhibits and a planetarium, open daily.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The University of Tartu Botanical Garden has grown on the same Lai 38 site for 220 years -- its outdoor collection of 10,000-plus species is free, the greenhouses ticketed.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>Tartu Smart Bike Share runs about 750 bikes across 100 docks, perfect for rolling the flat Emajogi riverbank paths that thread through the city.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Ruutli street and Town Hall Square (Raekoja plats) form a pedestrianized old-town core that is car-free and walkable end to end.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Toomemagi (Cathedral Hill) park sits just behind Town Hall Square -- the Tartu Cathedral ruins and the 1810 Old Observatory, a UNESCO Struve Arc point, are a short uphill walk.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Riga</h3><span class="cc">LV</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">Lux Express coach from Tartu (~4h) · Jul 8-11</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>Gunnar Birkerts' "Castle of Light," the 14-floor National Library of Latvia -- free with a visitor pass, with Daugava River views from the upper levels.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Riga Motor Museum (Motormuzejs) in Mezciems -- vintage and Soviet-era cars, including the leaders' limousines, open Tuesday to Sunday.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Bastejkalns canal park by the Freedom Monument, plus Mezaparks, one of Europe's first garden-city suburbs on Lake Kisezers.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>Take a Vivi train up to Sigulda (~1h15, with onboard bike racks) and cycle the Gauja valley in Gauja National Park.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Compact Vecriga, the old town -- walk the cobbles rather than ride them.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Sigulda is the "Switzerland of Latvia," so its Gauja trails are hilly and suit a sturdy bike better than a folder.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="baltics">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Kaunas</h3><span class="cc">LT</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">Lux Express coach from Riga via Panevezys (~4.5h) · Jul 11-13</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Kaunas Vincas Kudirka Public Library, the city's main municipal library since 1925, sits at Laisves aleja 57 right on the pedestrian boulevard.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Science Island (Mokslo sala), opened December 2024 on Nemunas Island, is Lithuania's only science centre, with 140 interactive exhibits and the country's only planetarium under an 11-metre 8K dome.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Vytautas Magnus University Botanical Garden in the Freda district, founded 1923 and Lithuania's second largest at 62.5 hectares, is open daily 9:00-20:00 from April through October.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>A flat riverside bike path leaves the Nemunas-Neris confluence below Kaunas Castle and runs west along the Nemunas toward the Gothic Zapyskis church, part of the long-distance Nieman Cycle Trail.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Laisves aleja, a 1.6-km linden-lined promenade billed as the longest pedestrian street in Eastern Europe, runs car-free straight into the Old Town.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The historic 1931 Zaliakalnis funicular is listed as temporarily closed on the official Visit Kaunas site, but the 1935 Aleksotas funicular still climbs to its Nemunas viewpoint for 1 EUR.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Bialystok</h3><span class="cc">PL</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">PKP Intercity (IC 'Hańcza') + LTG Link cross-border service from Kaunas, same-platform change at Mockava (~4-5h, standard gauge) · Jul 13-15</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>Książnica Podlaska im. Łukasza Górnickiego is the largest library in northeastern Poland, holding over 1.1 million items and a deep regional Podlasie collection.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Epi-Centrum Nauki, Białystok's hands-on science centre at the Chorten Arena city stadium, runs about 100 experiment stations plus a Little Explorer's Zone for younger kids.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Branicki Palace grounds -- the 'Versailles of Podlasie' -- open a free 9.7-hectare Baroque park with a formal French upper garden and a landscaped English lower garden.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>Białystok is a main stage point on the Green Velo, Poland's roughly 2,000 km eastern cycle route, with a paved 'Across Knyszyński Forest' section running from the city toward the Czapielówka lagoon.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Rynek Kościuszki, the market square pedestrianised in 2007-2008, flows into Lipowa Street, the cafe-lined walking promenade through the old core.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>There is no direct Kaunas to Białystok train in 2026 -- you change at Mockava onto PKP Intercity (IC 'Hańcza') at the standard-gauge border point, and only about three cross-border trains run each day, so check the timetable before committing.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Warsaw</h3><span class="cc">PL</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">PKP Intercity (IC) from Bialystok (~2h) · Jul 15-17</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The University of Warsaw Library (BUW) in Powisle crowns its glass-and-copper building with a free, roughly one-hectare rooftop garden, one of the largest in Europe.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Copernicus Science Centre (Centrum Nauki Kopernik) sits on the Vistula riverbank with hundreds of hands-on physics and biology exhibits, open daily from 9:00.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Lazienki Krolewskie (Royal Baths Park) is a free 76-hectare royal garden with the Palace on the Isle and roaming peacocks, but bikes must be walked, not ridden, inside.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The flat Vistula Boulevards cycle path (Bulwary Wislane) runs for kilometres along the river, linking the Old Town, the Copernicus Centre, and the National Stadium away from car traffic.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Warsaw's UNESCO-listed Old Town (Stare Miasto) and the cafe-lined Nowy Swiat street are closed to private cars, making the Royal Route walkable end to end.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Copernicus Science Centre uses timed-entry tickets that regularly sell out on weekends, so book online before you arrive rather than at the door.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Torun</h3><span class="cc">PL</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">PKP Intercity (IC) from Warszawa Centralna (~2h15m) · Jul 17-19</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>Ksiaznica Kopernikanska (the regional Wojewodzka Biblioteka Publiczna) at ul. Slowackiego 8 was founded in 1923 on the 450th anniversary of Copernicus's birth and holds the largest collection of old Torun prints plus a Copernicana set with early editions of De revolutionibus.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Planetarium Torun, opened in 1994 inside an 1860s former municipal gasworks gasholder a few minutes from the Old Town, runs full-dome astronomy shows in the birthplace of Nicolaus Copernicus.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Park Miejski na Bydgoskim Przedmiesciu, laid out in 1817 as one of the oldest public parks in Poland, spreads 25 hectares with nearly 100 tree and shrub species down a slope to the Vistula greens.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>EuroVelo 9 / Wislana Trasa Rowerowa (the Vistula Cycle Route) runs right along the river through Torun, giving flat, signposted riverside riding past the medieval town walls.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Rynek Staromiejski and the Gothic Old Town, a UNESCO World Heritage site since 1997, are largely pedestrianized cobbled streets centered on the 14th-century Old Town Hall.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Torun Glowny sits on the south bank about 2 km from the Old Town across the Vistula, so take city bus 22 or 27 to Plac Rapackiego, or check whether your train also calls at the more central Torun Miasto station.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Poznan</h3><span class="cc">PL</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">PKP Intercity from Toruń (~1.5h) · Jul 19-21</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Raczyński Library on Plac Wolności is Poland's oldest public library, opened in 1829, with a Louvre-style Corinthian colonnade and a 2013 JEMS-designed glass wing holding the reading rooms and a children's library.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Enigma Cipher Centre (Centrum Szyfrów Enigma) is an interactive museum honoring the three Poznań mathematicians -- Rejewski, Różycki and Zygalski -- who first cracked the German Enigma machine, and it stays open through 2026; budget about two hours.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Park Cytadela, the city's largest park on the old Prussian fortress hill, is free and holds Magdalena Abakanowicz's 'Nierozpoznani' installation of 112 headless cast-iron figures striding across the lawn.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Wartostrada is a flat, paved walking-and-cycling path along the Warta River that connects to an easy 5.5 km paved loop around Lake Malta -- both fine on a folding bike.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The reconstructed Stary Rynek (Old Market Square), reopened in mid-2024 after a years-long rebuild, is a pedestrian Renaissance square where mechanical billy goats butt heads on the Town Hall clock at noon.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Palmiarnia Poznańska, Poland's oldest and largest palm house in Park Wilsona, is scheduled to close in early 2026 for a multi-year renovation, so confirm it is open before planning a visit.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="poland">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Wroclaw</h3><span class="cc">PL</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">PKP Intercity (IC) from Poznań (~1.5h, direct, hourly) · Jul 21-24</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Ossolineum (Ossoliński National Institute) on Szewska Street is Poland's second-largest library after Kraków's Jagiellonian and holds Mickiewicz's original manuscript of Pan Tadeusz plus drawings by Rembrandt and Durer.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Hydropolis is a water-science centre built inside a 19th-century underground clean-water reservoir, with seven interactive zones spread across 4,000 square metres.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Japanese Garden in Szczytnicki Park, laid out in 1909-1913 for the Centennial Exhibition, sits right beside Max Berg's UNESCO-listed Centennial Hall.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>Wroclaw has more than 200 km of bike paths, and a flat riverside route follows the Oder past Dąbski Park to Szczytnicki Park and the Centennial Hall.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Ostrów Tumski (Cathedral Island), the city's thousand-year-old oldest quarter, is pedestrian-only and still has gas street lamps lit by hand every evening by a lamplighter.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The Japanese Garden opens only 1 April to 31 October, so a November-March visit will find the gate closed for the winter.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Prague</h3><span class="cc">CZ</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">RegioJet direct train from Wroclaw (~4.5h; only the fastest services run direct, others change at Pardubice) · Jul 24-27</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Klementinum holds the National Library of the Czech Republic's 1727 Baroque Library Hall, viewed from the doorway on a 45-minute guided tour that also climbs the 68-meter Astronomical Tower.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The National Technical Museum (Narodni technicke muzeum) on Letna hill packs locomotives, cars and aircraft into 16 permanent halls across seven floors.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Prague Botanical Garden in Troja and its S-shaped Fata Morgana tropical greenhouse open Tuesday to Sunday but close on Mondays.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The A1 Vltava left-bank cycle route runs largely traffic-free north past the Vystaviste grounds and Stromovka park to Troja and the botanical garden -- a flat riverside spin made for a folding bike.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Charles Bridge has been closed to all vehicles since 1978 and anchors a large pedestrian-only core through Prague's Old Town.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Prague bans cycling in parts of the historic centre -- Karlova street toward Charles Bridge, part of Wenceslas Square and Josefov -- so plan to walk the folding bike there, and note the Castle and Letna sit up steep hills.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Brno</h3><span class="cc">CZ</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">RegioJet from Prague (~2h40m) · Jul 27-29</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Moravian Library (Moravska zemska knihovna) on Kounicova holds over four million documents and is the second-largest library in the Czech Republic.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>VIDA! Science Centre, in a former exhibition-grounds pavilion off Krizkovskeho, runs more than 180 hands-on exhibits across four zones and is open daily except Mondays.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Botanical Garden and Arboretum of Mendel University is an 11-hectare collection of orchids, irises and rock gardens, open year-round a short walk north of the centre.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>A mostly flat, paved cycle path follows the Svratka river out to the Brnenska prehrada (Brno reservoir), a car-free lakeside run that connects onward to the Brno-Vienna route.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The historic core around namesti Svobody (Freedom Square) and Zelny trh is a pedestrian zone where cars are barred after 11:30 a.m., reached on foot up Masarykova from the station.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Through 2026 the city is rebuilding Masarykova and Rasinova -- the pedestrian spine from the station into the centre -- to fit retractable tram bollards, so expect fenced-off pavement and detours.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Bratislava</h3><span class="cc">SK</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">RegioJet train from Brno (~1h40m) · Jul 29-Aug 1</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The University Library in Bratislava (Univerzitna kniznica v Bratislave) is the national research library, set in historic palaces on Michalska and Venturska streets in the Old Town with free public access.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Transport Museum (Muzeum dopravy), a branch of the Slovak Technical Museum at Sancova 1, fills the city's first steam railway station from 1848 and parks diesel and electric locomotives in its open railyard.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Comenius University Botanical Garden at Botanicka 3 spreads 6.6 hectares with over 4,000 plant species including 1,200 cacti, open daily April 1 to October 31.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The EuroVelo 6 Danube cycle path runs flat and almost entirely paved about 12 km west from the center to Devin Castle at the Danube-Morava confluence.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Bratislava's Old Town core -- Hlavne namestie, Hviezdoslavovo namestie, and the medieval Michalska Gate -- is a pedestrian-only zone closed to cars.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Bratislava hlavna stanica sits on a slope north of the center, an easy ~15-minute downhill walk into the Old Town but an uphill return -- tram line 1 covers the climb back.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Vienna</h3><span class="cc">AT</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">ÖBB Railjet from Bratislava (~1h) · Aug 1-3</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Austrian National Library's State Hall (Prunksaal) is an 80-metre baroque book hall with four metre-wide Venetian globes, and it offers barrier-free access.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Technisches Museum Wien, near Schönbrunn, covers transport, energy and heavy industry across four floors and opens daily at 9am.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Schönbrunn Palace's formal gardens, fountains and the Gloriette hill are free to walk every day from 6:30am to dusk.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Donauradweg (EuroVelo 6) runs largely car-free along the Danube; heading east from Vienna it crosses the Donau-Auen National Park toward the Slovak border.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Mariahilfer Strasse is Europe's longest shared space -- a 1.6km central pedestrian zone where through-traffic by car is blocked.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The State Hall of the Austrian National Library is closed on Mondays from October through May, so aim for a Tuesday-to-Sunday visit.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Graz</h3><span class="cc">AT</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">ÖBB Railjet from Vienna Hbf over the Semmering (~2h35) · Aug 3-5</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Steiermärkische Landesbibliothek, founded in 1812 by Archduke Johann and Austria's oldest regional library, holds about 790,000 items at Kalchberggasse 2 in the Joanneumsviertel and is barrier-free.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Naturkundemuseum at the Universalmuseum Joanneum, in the same Joanneumsviertel, walks you through 400 million years of Styrian geology and opens Tuesday to Sunday, 10 to 18.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Botanischer Garten der Universität Graz is free to enter, and its 1995 Volker Giencke glasshouses pack four climate zones and roughly 7,500 plant species.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Murradweg R2, a flat asphalt riverside cycle path, runs straight through the city along the Mur and past the floating Murinsel platform.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Herrengasse and the Hauptplatz form a car-free UNESCO old-town core where only trams move, walkable end to end in minutes.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The Schlossberg viewpoint is a genuine climb -- take the 260-step staircase, the 1894 Schlossbergbahn funicular, or the lift inside the rock, not your bike.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="south">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Maribor</h3><span class="cc">SI</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">EuroCity "Emona" (EC, ÖBB/SŽ) from Graz Hbf (~1h) · Aug 5-7</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The University of Maribor Library (Univerzitetna knjiznica Maribor) at Gospejna ulica 10 holds roughly a million books and manuscripts and offers online enrollment for visitors.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Center eksperimentov Maribor (CEM) runs a permanent hands-on exhibition of about 50 physics, math, and chemistry experiments you operate yourself.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Mestni park (City Park), laid out in the 1870s in English landscape style, has more than 150 labeled tree species and three ponds, with the 1920s Aquarium-Terrarium and its 120-plus fish species in the old park cafe.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Drava Bike route (Dravska kolesarska pot), a 710 km Italy-Austria-Slovenia-Croatia trail along the river, runs flat right through Maribor's Lent waterfront.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The Lent riverfront and the old-town squares Glavni trg and Grajski trg form a pedestrian core where Stara trta, the world's oldest grapevine at over 400 years, still grows on the Old Vine House.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Center eksperimentov Maribor keeps short weekday hours, closes Sundays, and shuts to walk-ins during school-group bookings, so call ahead before visiting.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Regensburg</h3><span class="cc">DE</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">SŽ regional Maribor to Ljubljana, then EuroCity (Ljubljana-München via Villach/Salzburg) to München Hbf, then alex/agilis Regional Express to Regensburg (~6.5h, two changes) · Aug 7-9</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Staatliche Bibliothek Regensburg, the regional state library on Gesandtenstrasse, occupies the former Jesuit college of St. Paul and opens its historic reading rooms holding medieval manuscripts and early printed books.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Kepler-Gedaechtnishaus (document Kepler) at Keplerstrasse 5 is where astronomer Johannes Kepler died in 1630, and it shows his instruments plus physical models of his three laws of planetary motion, open Tuesday to Sunday 10 to 16.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Botanischer Garten der Universitaet Regensburg holds about 5,000 plant species across 4.5 hectares on the south campus, with free admission and lawns you may picnic on.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Donauradweg (EuroVelo 6, the Danube Cycle Path) runs flat and signposted right through the city, so you can ride upstream toward the Weltenburg Abbey gorge near Kelheim or downstream toward Straubing and Passau.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The UNESCO-listed Altstadt is a traffic-free maze of cobbled lanes, and the 12th-century Steinerne Bruecke (Stone Bridge) over the Danube has been walk-and-bike only since 2008.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The Naturkundemuseum Ostbayern natural-history museum at Herzogpark is closed through much of 2026 for a building renovation, with only a small guest show at the Historisches Museum, so confirm reopening before planning a visit.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Nuremberg</h3><span class="cc">DE</span>
+              <span class="nights">2 <span>nts</span></span>
+            </div>
+            <p class="arrive">DB RE Regional-Express from Regensburg Hbf (~1h) · Aug 9-11</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Stadtbibliothek Zentrum fills the restored Luitpoldhaus at Gewerbemuseumsplatz 4, holding over 700,000 items with a 310,000-volume open-access floor, about a 12-minute walk north of the Hauptbahnhof.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Deutsches Museum Nuremberg -- branded Das Zukunftsmuseum -- is the Deutsches Museum's future-tech branch on the Augustinerhof, with hands-on exhibits on robotics, space travel and human enhancement.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Hesperidengaerten in the St. Johannis district are free restored Baroque citrus gardens, open daily 8am to 8pm from April through October.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>Nuremberg is the start and finish of the roughly 300km Fuenf-Fluesse-Radweg (Five Rivers Cycle Route), a nearly flat, low-traffic loop that follows the Pegnitz out of the city and rides well on a folding bike.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The walled Altstadt around the Hauptmarkt and Koenigstrasse is a pedestrian core, with the Hauptmarkt square and its Schoener Brunnen fountain closed to cars.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The Deutsches Museum Nuremberg is closed every Monday, so on a two-night stay schedule the museum for your full day rather than a Monday.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Leipzig</h3><span class="cc">DE</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">DB ICE from Nuremberg (~2h) · Aug 11-14</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The German National Library (Deutsche Nationalbibliothek) Leipzig branch on Deutscher Platz collects a copy of every German-language publication since 1913 and houses the German Museum of Books and Writing -- open Monday to Friday 9:00-22:00 and Saturday 10:00-18:00.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>INSPIRATA, a hands-on math and science museum with more than 150 interactive exhibits, sits in the Alte Messe trade-fair grounds southeast of the center, but it opens only on Saturdays and Sundays, 10:00-18:00.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Leipzig University Botanical Garden (Botanischer Garten der Universitaet Leipzig) on Linnestrasse is Germany's oldest, dating to 1542, with about 7,000 plant species and free outdoor entry.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>South of the city the Leipziger Neuseenland chain of former lignite-pit lakes gives flat lakeside cycling, including an easy 11 km loop around the Cospudener See reached along the Karl-Heine-Kanal towpath.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The old town inside the Promenadenring is roughly one square kilometer of pedestrian streets and roofed shopping arcades, from the Maedler Passage to Specks Hof and Barthels Hof.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The Naturkundemuseum Leipzig (Natural History Museum) is closed for its move to the former Bowlingtreff at Wilhelm-Leuschner-Platz and reopens only in stages through 2029, so there is no natural-history exhibit to visit in 2026.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Frankfurt</h3><span class="cc">DE</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">DB ICE from Leipzig Hbf (~3h) · Aug 14-17</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Deutsche Nationalbibliothek on Adickesallee 1 collects every German-language work published since 1913, with free exhibitions and reading rooms open to anyone who registers.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Senckenberg Naturmuseum near the Bockenheim campus holds one of Germany's largest dinosaur exhibits, including a Tyrannosaurus rex and a Diplodocus skeleton.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Palmengarten, founded in 1871, fills 22 hectares of the Westend with tropical glasshouses, a rose garden and a butterfly house.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The flat Mainuferweg follows both banks of the River Main through the city center and links west to the EuroVelo 15 Rhine Cycle Route at Mainz.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The rebuilt Neue Altstadt (DomRoemer quarter) between Roemerberg square and the Kaiserdom cathedral is pedestrian-only, with no through traffic.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The Deutsche Nationalbibliothek closes Sundays and on German public holidays such as Corpus Christi (June 4, 2026), so plan a library visit on a weekday.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Bonn</h3><span class="cc">DE</span>
+              <span class="nights">3 <span>nts</span></span>
+            </div>
+            <p class="arrive">DB ICE from Frankfurt Hbf (~1h35) -- direct, no change · Aug 17-20</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Universitaets- und Landesbibliothek Bonn (ULB), the University of Bonn's central library, holds over two million volumes along with medieval manuscripts and music collections.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Deutsches Museum Bonn, the Rhineland branch of Munich's Deutsches Museum, focuses on German research and technology since 1945 and opens Tuesday through Sunday (closed Mondays).</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The Botanische Gaerten der Universitaet Bonn at Poppelsdorf Palace grow about 11,000 plant species and are famous for flowering the giant titan arum (Titanenwurz); open daily 10:00-18:00 from April through October.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>EuroVelo 15, the Rhine Cycle Route, runs flat and paved straight through Bonn, with the Bonn-to-Cologne stage about 120 km along the river -- and the Rheinaue park's asphalt loops are an easy folding-bike spin.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>Bonn's compact city-centre pedestrian zone around the Markt square and Sternstrasse is car-free and walkable, with Beethoven's birth house on Bonngasse a short stroll away.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>The ULB main library is closed for renovation from 30 June to 10 July 2026 -- the entrance is affected and the lending and information desks are temporarily relocated.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <article class="stop" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Cologne</h3><span class="cc">DE</span>
+              <span class="nights">1 <span>nt</span></span>
+            </div>
+            <p class="arrive">RE5 RheinExpress from Bonn (~20min) · Aug 20-21</p>
+            <dl class="facets">
+              <div class="facet"><dt>Library</dt><dd>The Stadtbibliothek Koln central library is running from interim quarters at Hohe Strasse 68-82 while its 1979 Zentralbibliothek gets a full renovation, with reopening due 2026/27.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>The Aquarium am Kolner Zoo packs a coral-reef tank, an insectarium, and a Rhine panorama tank of native fish into one riverside natural-science house, open daily through 2026.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>Flora und Botanischer Garten reopened its three-wing display greenhouses in June 2026 -- 6,000-plus plant species along a barrier-free 500m discovery path, free to enter.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>EuroVelo 15, the Rheinradweg, runs flat and largely car-free along the left-bank Rheinuferweg here and continues north toward the Netherlands -- the same river you will follow toward Rotterdam.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>The Schildergasse and Hohe Strasse form a continuous pedestrian spine running south from the Dom, among Germany's first car-free shopping streets, closed to traffic since 1966-67.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Heads-up</dt><dd>Do not plan a science-centre day here: the Odysseum closed in 2025 and its planned Exploradom successor was scrapped in April 2026.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- TERMINUS -->
+        <div class="stop stop--bookend stop--end" data-leg="rhine">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body">
+            <p class="bookend"><b>ROTTERDAM</b> · arrive the Netherlands Aug 21 · fast ICE Cologne→Rotterdam (~3h) · same finish line, twice the cities</p>
           </div>
         </div>
 
@@ -1170,6 +1633,36 @@
     }).addTo(map);
     var bounds = [], seen = {};
     legs.forEach(function(leg){
+      L.polyline(leg.pts.map(function(p){ return [p[1],p[2]]; }),
+        {color:leg.color, weight:4, opacity:.9, lineJoin:'round'}).addTo(map);
+      leg.pts.forEach(function(p){
+        bounds.push([p[1],p[2]]);
+        if(seen[p[0]]) return; seen[p[0]] = true;
+        var end = (p[0]==='Helsinki' || p[0]==='Rotterdam');
+        L.circleMarker([p[1],p[2]], {
+          radius: end?7:5.5, color:'#fff', weight:2, fillColor:leg.color, fillOpacity:1
+        }).addTo(map).bindTooltip(p[0], {permanent:true, direction:'right', className:'route-label', offset:[7,0]});
+      });
+    });
+    map.fitBounds(bounds, {padding:[38,38]});
+    setTimeout(function(){ map.invalidateSize(); map.fitBounds(bounds, {padding:[38,38]}); }, 250);
+  })();
+
+  // ---- Breadth-alternative route map ----
+  (function(){
+    if(typeof L === 'undefined' || !document.getElementById('map-breadth')) return;
+    var legsB = [
+      {color:'#176B7C', pts:[['Helsinki',60.169,24.938],['Tallinn',59.4373,24.7356],['Tartu',58.37379,26.70673],['Riga',56.9472,24.1206],['Kaunas',54.886,23.932]]},
+      {color:'#B0302A', pts:[['Kaunas',54.886,23.932],['Bialystok',53.1339,23.136],['Warsaw',52.2288,21.0033],['Torun',53.0001,18.6146],['Poznan',52.4014,16.9114],['Wroclaw',51.0989,17.0366]]},
+      {color:'#2D5E4C', pts:[['Wroclaw',51.0989,17.0366],['Prague',50.0836,14.4355],['Brno',49.19112,16.61311],['Bratislava',48.1587,17.1066],['Vienna',48.1854,16.376],['Graz',47.0725,15.4163],['Maribor',46.56167,15.6575]]},
+      {color:'#8A5A14', pts:[['Maribor',46.56167,15.6575],['Regensburg',49.01221,12.09973],['Nuremberg',49.44623,11.081942],['Leipzig',51.3454,12.3811],['Frankfurt',50.1042,8.6575],['Bonn',50.7323,7.0971],['Cologne',50.9432,6.958],['Rotterdam',51.924,4.478]]}
+    ];
+    var map = L.map('map-breadth', {scrollWheelZoom:false, zoomControl:true, attributionControl:true});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution:'&copy; OpenStreetMap, &copy; CARTO', subdomains:'abcd', maxZoom:18
+    }).addTo(map);
+    var bounds = [], seen = {};
+    legsB.forEach(function(leg){
       L.polyline(leg.pts.map(function(p){ return [p[1],p[2]]; }),
         {color:leg.color, weight:4, opacity:.9, lineJoin:'round'}).addTo(map);
       leg.pts.forEach(function(p){
