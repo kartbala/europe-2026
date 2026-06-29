@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Helsinki → Rotterdam · A Brompton, Eurail &amp; Ferry Summer · 2026</title>
 <meta name="description" content="A 49-night folding-bike, train and ferry journey from Helsinki to Rotterdam -- libraries, urbanism, parks, science museums and great trains across the Baltics, Poland, the Alpine south and the Rhine." />
+<meta name="author" content="Karthik &amp; Ashton" />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -75,6 +76,19 @@
     color:var(--muted);
     margin:0;
   }
+  .byline{
+    font-family:var(--mono);
+    font-size:.74rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:.6rem 0 0;
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  .byline::before{content:"";width:26px;height:2px;background:var(--poland);flex:none}
+  .byline b{color:var(--ink);font-weight:700}
 
   /* ---------- HERO ---------- */
   .hero{padding-top:clamp(28px,5vw,56px);padding-bottom:clamp(40px,7vw,80px);position:relative;z-index:1}
@@ -414,6 +428,7 @@
 <header class="hero" id="top">
   <div class="hero__inner">
     <p class="eyebrow">Summer 2026 · Brompton · Eurail · Ferry</p>
+    <p class="byline">By <b>Karthik &amp; Ashton</b></p>
 
     <div class="routebar" aria-hidden="true">
       <span class="routebar__dot"></span>
@@ -1104,7 +1119,7 @@
 <footer class="foot">
   <div class="wrap">
     <p>Depth over breadth, weighted east -- long stays where the going is hardest to reach, a fast scenic run home through Germany. Helsinki to Rotterdam, no flights.</p>
-    <span class="mono">Jul 3 - Aug 21 · 2026</span>
+    <span class="mono">Karthik &amp; Ashton · Jul 3 - Aug 21 · 2026</span>
   </div>
 </footer>
 
