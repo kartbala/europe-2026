@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Helsinki → Rotterdam · A Brompton, Eurail &amp; Ferry Summer · 2026</title>
-<meta name="description" content="A 49-night folding-bike, train and ferry journey from Helsinki to Rotterdam -- libraries, urbanism, parks, science museums and great trains across the Baltics, Poland, the Alpine south and the Rhine." />
+<meta name="description" content="A two-month folding-bike, train and ferry journey from Helsinki to Rotterdam -- libraries, urbanism, parks, science museums and great trains across the Baltics, Poland, the Alpine south, the Rhine and the Nordic capitals, ending with conferences in Lund and London." />
 <meta name="author" content="Karthik &amp; Ashton" />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,6 +25,7 @@
     --poland:#B0302A;   /* crimson -- PKP red */
     --south:#2D5E4C;    /* pine -- Austria & Slovenia */
     --rhine:#8A5A14;    /* ochre -- the Rhine & vineyards */
+    --nordic:#6A4C93;   /* plum -- the Nordic & conference leg */
 
     --display:'Bricolage Grotesque','Hanken Grotesk',system-ui,sans-serif;
     --body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -99,12 +100,13 @@
   .routebar__line{
     height:5px;flex:1;border-radius:4px;
     background:linear-gradient(90deg,
-      var(--baltics) 0 30%,
-      var(--poland) 30% 52%,
-      var(--south) 52% 74%,
-      var(--rhine) 74% 100%);
+      var(--baltics) 0 25%,
+      var(--poland) 25% 44%,
+      var(--south) 44% 63%,
+      var(--rhine) 63% 80%,
+      var(--nordic) 80% 100%);
   }
-  .routebar__ring{width:15px;height:15px;border-radius:50%;background:var(--paper);border:4px solid var(--rhine);flex:none}
+  .routebar__ring{width:15px;height:15px;border-radius:50%;background:var(--paper);border:4px solid var(--nordic);flex:none}
 
   .hero h1{
     font-family:var(--display);
@@ -230,6 +232,7 @@
   .stop[data-leg=poland]{--leg:var(--poland)}
   .stop[data-leg=south]{--leg:var(--south)}
   .stop[data-leg=rhine]{--leg:var(--rhine)}
+  .stop[data-leg=nordic]{--leg:var(--nordic)}
 
   .stop__marker{position:relative}
   .stop__marker::before{ /* the rail */
@@ -243,7 +246,7 @@
   }
   .stop--bookend .stop__node{width:15px;height:15px;top:.3rem}
   .stop--bookend .stop__marker::before{opacity:.55}
-  .stop--end .stop__node{background:var(--card);box-shadow:0 0 0 4px var(--rhine) inset,0 0 0 1.5px var(--rhine)}
+  .stop--end .stop__node{background:var(--card);box-shadow:0 0 0 4px var(--nordic) inset,0 0 0 1.5px var(--nordic)}
   .stop--end .stop__marker::before{display:none}
 
   .stop__body{padding-top:.05rem}
@@ -367,6 +370,7 @@
   .stay[data-leg=poland]{--leg:var(--poland)}
   .stay[data-leg=south]{--leg:var(--south)}
   .stay[data-leg=rhine]{--leg:var(--rhine)}
+  .stay[data-leg=nordic]{--leg:var(--nordic)}
   .stay h4{
     font-family:var(--display);font-weight:700;font-size:1.18rem;letter-spacing:-.01em;
     margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;
@@ -444,22 +448,22 @@
       <div class="ticket__row">
         <div class="ticket__end">
           <small>Depart</small>
-          <b>HEL · Jul 3</b>
+          <b>HEL · Jul 7</b>
         </div>
         <div class="ticket__mid" aria-hidden="true">
-          <span class="seg"></span> 49 NIGHTS <span class="seg"></span>
+          <span class="seg"></span> 61 NIGHTS <span class="seg"></span>
         </div>
         <div class="ticket__end" style="text-align:right">
           <small>Arrive</small>
-          <b>RTM · Aug 21</b>
+          <b>RTM · Sep 6</b>
         </div>
       </div>
       <div class="ticket__stats">
-        <div><b>13</b><small>Stops</small></div>
-        <div><b>8</b><small>Countries</small></div>
+        <div><b>15</b><small>Stops</small></div>
+        <div><b>11</b><small>Countries</small></div>
         <div><b>2</b><small>Bromptons</small></div>
         <div><b>1</b><small>Ferry</small></div>
-        <div><b>0</b><small>Flights</small></div>
+        <div><b>1</b><small>Flight</small></div>
       </div>
     </div>
   </div>
@@ -493,9 +497,9 @@
       </div>
 
       <figure class="mapwrap" style="margin-top:2.4rem">
-        <div id="map" role="img" aria-label="Map of the route from Helsinki to Rotterdam with 13 station stops, drawn in four leg colours"></div>
+        <div id="map" role="img" aria-label="Map of the route from Helsinki to Rotterdam with 15 station stops, drawn in five leg colours"></div>
         <figcaption class="mapcap">
-          <span>Helsinki → Rotterdam · 13 stops · no flights</span>
+          <span>Helsinki → Rotterdam · 15 stops · 1 flight</span>
           <span>Schematic -- straight lines between stations</span>
         </figcaption>
       </figure>
@@ -504,7 +508,8 @@
         <span role="listitem"><i style="background:var(--baltics)"></i>Baltics</span>
         <span role="listitem"><i style="background:var(--poland)"></i>Poland</span>
         <span role="listitem"><i style="background:var(--south)"></i>The Alpine South</span>
-        <span role="listitem"><i style="background:var(--rhine)"></i>The Rhine Return</span>
+        <span role="listitem"><i style="background:var(--rhine)"></i>The Rhine</span>
+        <span role="listitem"><i style="background:var(--nordic)"></i>North &amp; Conferences</span>
       </div>
 
       <div class="strip" style="margin-top:2.4rem">
@@ -513,7 +518,7 @@
         <div class="stop stop--bookend" data-leg="baltics">
           <div class="stop__marker"><span class="stop__node"></span></div>
           <div class="stop__body">
-            <p class="bookend"><b>HELSINKI</b> · depart Jul 3 · Tallink Megastar foot-passenger ferry (~2h) · fold the bikes, carry them on free</p>
+            <p class="bookend"><b>HELSINKI</b> · depart Jul 7 · Tallink Megastar foot-passenger ferry (~2h) · fold the bikes, carry them on free</p>
           </div>
         </div>
 
@@ -525,7 +530,7 @@
               <h3 class="card__name">Tallinn</h3><span class="cc">EE</span>
               <span class="nights">3 <span>nts</span></span>
             </div>
-            <p class="arrive">Arrive by ferry · Jul 3-6</p>
+            <p class="arrive">Arrive by ferry · Jul 7-10</p>
             <dl class="facets">
               <div class="facet"><dt>Science</dt><dd>Energy Discovery Centre &amp; PROTO; day-trip to Tartu for AHHAA, the biggest science centre in the Baltics.</dd></div>
               <div class="facet"><dt>Garden</dt><dd>Kadriorg Park.</dd></div>
@@ -544,7 +549,7 @@
               <h3 class="card__name">Riga</h3><span class="cc">LV</span>
               <span class="nights">3 <span>nts</span></span>
             </div>
-            <p class="arrive">Direct Elron train Tallinn-Tartu-Riga (~6h, new in 2026) · Jul 6-9</p>
+            <p class="arrive">Direct Elron train Tallinn-Tartu-Riga (~6h, new in 2026) · Jul 10-13</p>
             <dl class="facets">
               <div class="facet"><dt>Library</dt><dd>Birkerts' "Castle of Light" National Library -- 14 levels, free. The Baltic library highlight.</dd></div>
               <div class="facet"><dt>Garden</dt><dd>The canal-belt green ring; the Mežaparks garden-city.</dd></div>
@@ -562,7 +567,7 @@
               <h3 class="card__name">Vilnius</h3><span class="cc">LT</span>
               <span class="nights">3 <span>nts</span></span>
             </div>
-            <p class="arrive">Lux Express coach from Riga (~4h) · Jul 9-12</p>
+            <p class="arrive">Lux Express coach from Riga (~4h) · Jul 13-16</p>
             <dl class="facets">
               <div class="facet"><dt>Library</dt><dd>Vilnius University Library -- the baroque Smuglevičius Hall (weekdays).</dd></div>
               <div class="facet"><dt>Science</dt><dd>Energy &amp; Technology Museum, inside an old power station.</dd></div>
@@ -581,7 +586,7 @@
               <h3 class="card__name">Gdańsk</h3><span class="cc">PL</span>
               <span class="nights">4 <span>nts</span></span>
             </div>
-            <p class="arrive">Direct coach from Vilnius (~10½h) -- the one long travel day; book an early departure · Jul 12-16</p>
+            <p class="arrive">Direct coach from Vilnius (~10½h) -- the one long travel day; book an early departure · Jul 16-20</p>
             <dl class="facets">
               <div class="facet"><dt>Science</dt><dd>Hevelianum on Gradowa Hill -- hands-on, plus a park and a viewpoint.</dd></div>
               <div class="facet"><dt>Ride</dt><dd>The Motława and the Baltic coast paths.</dd></div>
@@ -600,13 +605,13 @@
               <h3 class="card__name">Warsaw</h3><span class="cc">PL</span>
               <span class="nights">4 <span>nts</span></span>
             </div>
-            <p class="arrive">EIP Pendolino from Gdańsk (~2h30) · Jul 16-20</p>
+            <p class="arrive">EIP Pendolino from Gdańsk (~2h30) · Jul 20-24</p>
             <dl class="facets">
               <div class="facet"><dt>Library</dt><dd>The BUW university library and its 2,000&nbsp;m² rooftop garden -- library and park at once.</dd></div>
               <div class="facet"><dt>Science</dt><dd>The Copernicus Science Centre -- 450+ exhibits.</dd></div>
               <div class="facet"><dt>Ride</dt><dd>The continuous car-free Vistula riverbank path.</dd></div>
               <div class="facet"><dt>Car-free</dt><dd>The Old Town -- a meticulous post-war replica, read as a case study.</dd></div>
-              <div class="facet facet--wide"><dt>OCI errand</dt><dd>Embassy of India runs an open house every <b>Wednesday, 15:30–16:00</b> (2 Myśliwiecka St, Consular Gate) that explicitly covers OCI cards -- no appointment. This is the one verified OCI-explicit session on the whole route, so line the Warsaw stay up to include a Wednesday (Jul 22 or 29). Confirm on indianembassywarsaw.gov.in first.</dd></div>
+              <div class="facet facet--wide"><dt>OCI errand</dt><dd>The Jul 20-24 stay lands on <b>Wednesday Jul 22</b> -- the Embassy of India open house, <b>15:30–16:00</b> (2 Myśliwiecka St, Consular Gate), explicitly covers OCI cards, no appointment. The one verified OCI-explicit session on the whole route. Confirm on indianembassywarsaw.gov.in first.</dd></div>
             </dl>
           </div></div>
         </article>
@@ -619,7 +624,7 @@
               <h3 class="card__name">Kraków</h3><span class="cc">PL</span>
               <span class="nights">6 <span>nts</span></span>
             </div>
-            <p class="arrive">EIP Pendolino from Warsaw (~2h45) · Jul 20-26</p>
+            <p class="arrive">EIP Pendolino from Warsaw (~2h45) · Jul 24-30</p>
             <dl class="facets">
               <div class="facet facet--wide"><dt>Urbanism</dt><dd>Nowa Huta -- a planned Stalinist "ideal city." The most on-theme stop in Poland.</dd></div>
               <div class="facet"><dt>Garden</dt><dd>The Planty -- a green ring that encircles the whole old town.</dd></div>
@@ -638,7 +643,7 @@
               <h3 class="card__name">Vienna</h3><span class="cc">AT</span>
               <span class="nights">6 <span>nts</span></span>
             </div>
-            <p class="arrive">ÖBB EuroCity from Kraków (~6h) · Jul 26-Aug 1</p>
+            <p class="arrive">ÖBB EuroCity from Kraków (~6h) · Jul 30-Aug 5</p>
             <dl class="facets">
               <div class="facet"><dt>Library</dt><dd>The Hauptbücherei -- a public library built over a road -- and the imperial Prunksaal.</dd></div>
               <div class="facet"><dt>Science</dt><dd>The Technisches Museum Wien.</dd></div>
@@ -658,7 +663,7 @@
               <h3 class="card__name">Ljubljana</h3><span class="cc">SI</span>
               <span class="nights">6 <span>nts</span></span>
             </div>
-            <p class="arrive">EC Emona from Vienna, over the UNESCO Semmering (~6h) · Aug 1-7</p>
+            <p class="arrive">EC Emona from Vienna, over the UNESCO Semmering (~6h) · Aug 5-11</p>
             <dl class="facets">
               <div class="facet facet--wide"><dt>Urbanism</dt><dd>Europe's most complete pedestrianised old town -- a built woonerf, the city's "Vision" car removal.</dd></div>
               <div class="facet"><dt>Library</dt><dd>Plečnik's NUK -- the dark-stairs-into-light Reading Room (confirm summer hours).</dd></div>
@@ -677,7 +682,7 @@
               <h3 class="card__name">Salzburg</h3><span class="cc">AT</span>
               <span class="nights">1 <span>nt</span></span>
             </div>
-            <p class="arrive">Scenic Ljubljana-Villach-Salzburg over the Tauern Alps · Aug 7-8</p>
+            <p class="arrive">Scenic Ljubljana-Villach-Salzburg over the Tauern Alps · Aug 11-12</p>
             <dl class="facets">
               <div class="facet"><dt>Garden</dt><dd>The Mirabellgarten.</dd></div>
               <div class="facet"><dt>Ride</dt><dd>The Salzach riverside path.</dd></div>
@@ -695,7 +700,7 @@
               <h3 class="card__name">Munich</h3><span class="cc">DE</span>
               <span class="nights">5 <span>nts</span></span>
             </div>
-            <p class="arrive">Tauern line from Salzburg · Aug 8-13</p>
+            <p class="arrive">Tauern line from Salzburg · Aug 12-17</p>
             <dl class="facets">
               <div class="facet facet--wide"><dt>Science</dt><dd>The Deutsches Museum -- the world's largest science museum. Give it a full day.</dd></div>
               <div class="facet"><dt>Garden</dt><dd>The Englischer Garten.</dd></div>
@@ -714,7 +719,7 @@
               <h3 class="card__name">Stuttgart</h3><span class="cc">DE</span>
               <span class="nights">2 <span>nts</span></span>
             </div>
-            <p class="arrive">ICE from Munich · Aug 13-15</p>
+            <p class="arrive">ICE from Munich · Aug 17-19</p>
             <dl class="facets">
               <div class="facet facet--wide"><dt>Library</dt><dd>Eun Young Yi's white-cube Stadtbibliothek -- the cathedral-like "Heart" atrium. The best library building on the way home.</dd></div>
               <div class="facet"><dt>Garden</dt><dd>The Schlossgarten green-U.</dd></div>
@@ -730,9 +735,9 @@
           <div class="stop__body"><div class="card">
             <div class="card__head">
               <h3 class="card__name">Rhine Valley</h3><span class="cc">DE</span>
-              <span class="nights">4 <span>nts</span></span>
+              <span class="nights">3 <span>nts</span></span>
             </div>
-            <p class="arrive">Base in Bacharach or Boppard · Aug 15-19</p>
+            <p class="arrive">Base in Bacharach or Boppard · Aug 19-22</p>
             <dl class="facets">
               <div class="facet facet--wide"><dt>Countryside</dt><dd>The UNESCO gorge -- ~40 castles, vineyards and the Loreley. The deliberate no-library counterweight.</dd></div>
               <div class="facet"><dt>Ride</dt><dd>The flat, car-free EuroVelo 15 along the river -- ride one way, train or ferry back.</dd></div>
@@ -741,29 +746,66 @@
           </div></div>
         </article>
 
-        <!-- COLOGNE -->
-        <article class="stop" data-leg="rhine">
+        <!-- LUND -->
+        <article class="stop" data-leg="nordic">
           <div class="stop__marker"><span class="stop__node"></span></div>
           <div class="stop__body"><div class="card">
             <div class="card__head">
-              <h3 class="card__name">Cologne</h3><span class="cc">DE</span>
-              <span class="nights">2 <span>nts</span></span>
+              <h3 class="card__name">Lund</h3><span class="cc">SE</span>
+              <span class="nights">3 <span>nts</span></span>
             </div>
-            <p class="arrive">Along the Rhine, "via Koblenz" · Aug 19-21</p>
+            <p class="arrive">Long rail day north via Cologne &amp; Hamburg to Copenhagen, then over the Øresund · Aug 22-25</p>
             <dl class="facets">
-              <div class="facet"><dt>Library</dt><dd>The maker-focused Stadtbibliothek.</dd></div>
-              <div class="facet"><dt>Garden</dt><dd>The Rheinpark.</dd></div>
-              <div class="facet"><dt>Ride</dt><dd>EuroVelo 15 across the Hohenzollern bridge.</dd></div>
-              <div class="facet"><dt>Car-free</dt><dd>The Dom forecourt.</dd></div>
+              <div class="facet facet--wide facet--flag"><dt>Conference</dt><dd>Ashton's conference, <b>Aug 23-25</b>. The reason the route turns north -- everything after Warsaw feeds toward this.</dd></div>
+              <div class="facet"><dt>Library</dt><dd>Lund University Library (UB) -- one of Sweden's oldest, in its own park.</dd></div>
+              <div class="facet"><dt>Car-free</dt><dd>A compact medieval university town built around the cathedral -- walk and bike, no car needed.</dd></div>
+              <div class="facet"><dt>Day trip</dt><dd>Malmö and the Turning Torso, a short Øresund hop away.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- COPENHAGEN -->
+        <article class="stop" data-leg="nordic">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">Copenhagen</h3><span class="cc">DK</span>
+              <span class="nights">6 <span>nts</span></span>
+            </div>
+            <p class="arrive">Back over the Øresund bridge from Lund (~40 min) · Aug 25-31</p>
+            <dl class="facets">
+              <div class="facet facet--wide"><dt>Urbanism</dt><dd>The cycling capital of the world -- protected tracks everywhere, Superkilen, Ørestad, the Fingerplan. The single most on-theme city of the trip.</dd></div>
+              <div class="facet"><dt>Library</dt><dd>The "Black Diamond" Royal Danish Library on the harbour.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Cykelslangen bike-snake and the harbour bridges; day-ride to Dragør.</dd></div>
+              <div class="facet"><dt>Science</dt><dd>Experimentarium in Hellerup.</dd></div>
+              <div class="facet"><dt>Day trip</dt><dd>The Louisiana museum up the coast; Malmö back across the strait.</dd></div>
+            </dl>
+          </div></div>
+        </article>
+
+        <!-- LONDON -->
+        <article class="stop" data-leg="nordic">
+          <div class="stop__marker"><span class="stop__node"></span></div>
+          <div class="stop__body"><div class="card">
+            <div class="card__head">
+              <h3 class="card__name">London</h3><span class="cc">GB</span>
+              <span class="nights">4 <span>nts</span></span>
+            </div>
+            <p class="arrive">The one flight of the trip -- Copenhagen → London · Aug 31-Sep 4</p>
+            <dl class="facets">
+              <div class="facet facet--wide facet--flag"><dt>Conference</dt><dd>Ashton's London conference, <b>Sep 1-4</b>. The Copenhagen→London hop is the trip's only flight; the bikes fly folded as luggage.</dd></div>
+              <div class="facet"><dt>Library</dt><dd>The British Library at St Pancras -- and the Eurostar terminal next door for the run to Rotterdam.</dd></div>
+              <div class="facet"><dt>Ride</dt><dd>The Cycleways (CS3 embankment) and the Regent's Canal towpath.</dd></div>
+              <div class="facet"><dt>Garden</dt><dd>The royal parks green spine, Hyde Park to St James's.</dd></div>
             </dl>
           </div></div>
         </article>
 
         <!-- TERMINUS -->
-        <div class="stop stop--bookend stop--end" data-leg="rhine">
+        <div class="stop stop--bookend stop--end" data-leg="nordic">
           <div class="stop__marker"><span class="stop__node"></span></div>
           <div class="stop__body">
-            <p class="bookend"><b>ROTTERDAM</b> · arrive the Netherlands Aug 21 · fast ICE Cologne→Rotterdam (~3h) · two nights of buffer in hand</p>
+            <p class="bookend"><b>ROTTERDAM</b> · arrive the Netherlands Sep 6 · direct Eurostar London→Rotterdam (~3h10) · two nights of buffer in hand · home</p>
           </div>
         </div>
 
@@ -1337,19 +1379,35 @@
           </ul>
         </article>
         <article class="stay" data-leg="rhine">
-          <h4>Rhine Valley <span class="n">4 nts</span></h4>
+          <h4>Rhine Valley <span class="n">3 nts</span></h4>
           <p class="hood">Base · Bacharach Altstadt</p>
           <ul>
             <li><b>Rhein-Hotel Bacharach</b><em>Built into the city wall; lockable bike garage and rental bikes.</em></li>
             <li><b>Hotel Kranenturm</b><em>Rooms in a historic watchtower near the station; bike garage.</em></li>
           </ul>
         </article>
-        <article class="stay" data-leg="rhine">
-          <h4>Cologne <span class="n">2 nts</span></h4>
-          <p class="hood">Base · Ehrenfeld / Belgisches Viertel</p>
+        <article class="stay" data-leg="nordic">
+          <h4>Lund <span class="n">3 nts</span></h4>
+          <p class="hood">Base · near the conference venue</p>
           <ul>
-            <li><b>Hostel die Wohngemeinschaft</b><em>Creative themed design hostel in Belgisches Viertel.</em></li>
-            <li><b>Weltempfänger Hostel</b><em>Relaxed design hostel in Ehrenfeld with a veg cafe.</em></li>
+            <li><b>Grand Hotel Lund</b><em>Classic hotel by the station and the park; easy walk to the university.</em></li>
+            <li><b>Hotel Lundia</b><em>Design hotel right at Lund C -- drop the bags, walk to sessions.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="nordic">
+          <h4>Copenhagen <span class="n">6 nts</span></h4>
+          <p class="hood">Base · Vesterbro / Nørrebro</p>
+          <ul>
+            <li><b>Urban House</b><em>Big design hostel by the station with its own bike rental and storage.</em></li>
+            <li><b>Hotel Ottilia</b><em>Former Carlsberg brewery in Vesterbro; bike-friendly district.</em></li>
+          </ul>
+        </article>
+        <article class="stay" data-leg="nordic">
+          <h4>London <span class="n">4 nts</span></h4>
+          <p class="hood">Base · King's Cross / St Pancras</p>
+          <ul>
+            <li><b>Wesley Euston</b><em>Not-for-profit hotel steps from the British Library and Eurostar.</em></li>
+            <li><b>Clink78 / Clink261</b><em>Hostels near King's Cross with secure bike storage.</em></li>
           </ul>
         </article>
       </div>
@@ -1413,6 +1471,8 @@
               <li><span></span><div>Helsinki → Tallinn <b>ferry</b> (foot passenger)</div></li>
               <li><span></span><div>Riga → Vilnius <b>coach</b> (~4h)</div></li>
               <li><span></span><div>Vilnius → Gdańsk <b>coach</b> (~10½h, limited departures)</div></li>
+              <li><span></span><div>Copenhagen → London <b>flight</b> (bikes folded as luggage)</div></li>
+              <li><span></span><div>London → Rotterdam <b>Eurostar</b> (limited pass-holder quota -- book early)</div></li>
             </ul>
           </div>
         </div>
@@ -1427,7 +1487,7 @@
               <tr><td>Kraków → Vienna <small style="color:var(--muted)">EC</small></td><td class="req req--must">Required</td><td class="amt">€3-5.50</td></tr>
               <tr><td>Vienna → Ljubljana <small style="color:var(--muted)">EC Emona</small></td><td class="req req--rec">Advised</td><td class="amt">€3</td></tr>
               <tr><td>Munich → Stuttgart <small style="color:var(--muted)">ICE</small></td><td class="req req--rec">Advised</td><td class="amt">€5.50</td></tr>
-              <tr><td>Cologne → Rotterdam <small style="color:var(--muted)">ICE</small></td><td class="req req--must">Req. (summer)</td><td class="amt">€5.50</td></tr>
+              <tr><td>London → Rotterdam <small style="color:var(--muted)">Eurostar</small></td><td class="req req--must">Separate ticket</td><td class="amt">€40-120pp</td></tr>
             </tbody>
           </table>
           <p style="margin:.9rem 0 0;color:var(--muted);font-size:.86rem;font-family:var(--mono)">~€70-95 total for two · book on intercity.pl &amp; the Eurail app · peak-summer quotas sell out early</p>
@@ -1443,12 +1503,12 @@
         <div>
           <p class="eyebrow">What it costs</p>
           <h2>The budget, roughly</h2>
-          <p>2026 estimates for two, mid-range, no flights. The pass price is verified; the rest are planning ranges to confirm at booking.</p>
+          <p>2026 estimates for two, mid-range, one flight. The pass price is verified; the rest are planning ranges to confirm at booking.</p>
         </div>
       </div>
 
       <div class="pricetag reveal">
-        <b>≈ €13,100-19,200</b><span>total · two travellers · 49 nights</span>
+        <b>≈ €16,700-25,000</b><span>total · two travellers · 61 nights</span>
       </div>
 
       <div class="grid2" style="align-items:start">
@@ -1458,10 +1518,12 @@
             <li><span>Eurail passes (2 × €826)</span><span class="amt">€1,652</span></li>
             <li><span>Seat reservations</span><span class="amt">€70-95</span></li>
             <li><span>Ferry + 2 coaches</span><span class="amt">€170-300</span></li>
-            <li><span>Lodging, 49 nights</span><span class="amt">€6,000-9,400</span></li>
-            <li><span>Food · transit · admissions</span><span class="amt">€5,200-7,700</span></li>
+            <li><span>Copenhagen → London flight (2)</span><span class="amt">€120-280</span></li>
+            <li><span>London → Rotterdam Eurostar (2)</span><span class="amt">€80-240</span></li>
+            <li><span>Lodging, 61 nights</span><span class="amt">€7,800-12,400</span></li>
+            <li><span>Food · transit · admissions</span><span class="amt">€6,800-10,200</span></li>
           </ul>
-          <p class="disc">Pass price verified at €826 pp (2-month continuous, 2nd class). Folded bikes ride free. Food assumes vegetarian, mixing cafes with markets and bakeries.</p>
+          <p class="disc">Pass price verified at €826 pp (2-month continuous, 2nd class -- still covers the whole Jul 7-Sep 6 span). Folded bikes ride free on rail and ferry; the one flight charges for a bike bag. Copenhagen and London are the priciest nights. Food assumes vegetarian, mixing cafes with markets and bakeries.</p>
         </div>
 
         <div class="panel reveal">
@@ -1470,6 +1532,8 @@
             <li><span>Helsinki → Tallinn ferry (foot)</span><span class="amt">€30-60</span></li>
             <li><span>Riga → Vilnius coach</span><span class="amt">€15-30</span></li>
             <li><span>Vilnius → Gdańsk coach</span><span class="amt">€36-60</span></li>
+            <li><span>Copenhagen → London flight (2)</span><span class="amt">€120-280</span></li>
+            <li><span>London → Rotterdam Eurostar (2)</span><span class="amt">€80-240</span></li>
           </ul>
           <h3 style="margin-top:1.5rem">Lodging by region <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--muted)">/ NIGHT · MID-RANGE DOUBLE</span></h3>
           <table class="tt">
@@ -1478,7 +1542,8 @@
               <tr><td>Poland -- Gdańsk / Warsaw / Kraków</td><td class="amt">€100-170</td></tr>
               <tr><td>Vienna / Ljubljana</td><td class="amt">€140-230</td></tr>
               <tr><td>Salzburg / Munich (peak)</td><td class="amt">€160-260</td></tr>
-              <tr><td>Stuttgart / Rhine / Cologne</td><td class="amt">€120-210</td></tr>
+              <tr><td>Stuttgart / Rhine</td><td class="amt">€120-210</td></tr>
+              <tr><td>Lund / Copenhagen / London</td><td class="amt">€150-280</td></tr>
             </tbody>
           </table>
         </div>
@@ -1559,7 +1624,7 @@
             <li><div><b>Check the Vienna → Ljubljana service</b> runs the original Semmering viaduct, not the base tunnel -- or plan a regional leg over the old line.</div></li>
             <li><div><b>Book the Vilnius → Gdańsk coach</b> ahead and take an early departure, so the long day still ends in Gdańsk that evening.</div></li>
             <li><div><b>Pre-book the two required Polish reservations</b> (Gdańsk → Warsaw, Warsaw → Kraków) the moment dates are set.</div></li>
-            <li><div><b>Hold the two spare nights.</b> The plan lands Aug 21 -- keep the buffer against a missed connection on the long German return, or spend it east.</div></li>
+            <li><div><b>Hold the two spare nights.</b> The plan lands Rotterdam Sep 6, two nights after London -- keep the buffer against a missed Eurostar or a conference that runs long.</div></li>
           </ul>
         </div>
 
@@ -1582,8 +1647,8 @@
 
 <footer class="foot">
   <div class="wrap">
-    <p>Depth over breadth, weighted east -- long stays where the going is hardest to reach, a fast scenic run home through Germany. Helsinki to Rotterdam, no flights.</p>
-    <span class="mono">Karthik &amp; Ashton · Jul 3 - Aug 21 · 2026</span>
+    <p>Depth over breadth, weighted east -- long stays where the going is hardest to reach, then a turn north to Ashton's conferences in Lund and London before settling in Rotterdam. Helsinki to Rotterdam, one flight.</p>
+    <span class="mono">Karthik &amp; Ashton · Jul 7 - Sep 6 · 2026</span>
   </div>
 </footer>
 
@@ -1626,7 +1691,8 @@
       {color:'#176B7C', pts:[['Helsinki',60.169,24.938],['Tallinn',59.437,24.754],['Riga',56.949,24.105],['Vilnius',54.687,25.280]]},
       {color:'#B0302A', pts:[['Vilnius',54.687,25.280],['Gdańsk',54.352,18.646],['Warsaw',52.230,21.012],['Kraków',50.065,19.945]]},
       {color:'#2D5E4C', pts:[['Kraków',50.065,19.945],['Vienna',48.208,16.373],['Ljubljana',46.056,14.506],['Salzburg',47.809,13.055]]},
-      {color:'#8A5A14', pts:[['Salzburg',47.809,13.055],['Munich',48.135,11.582],['Stuttgart',48.776,9.182],['Rhine Valley',50.057,7.770],['Cologne',50.938,6.960],['Rotterdam',51.924,4.478]]}
+      {color:'#8A5A14', pts:[['Salzburg',47.809,13.055],['Munich',48.135,11.582],['Stuttgart',48.776,9.182],['Rhine Valley',50.057,7.770]]},
+      {color:'#6A4C93', pts:[['Rhine Valley',50.057,7.770],['Lund',55.7047,13.1910],['Copenhagen',55.6761,12.5683],['London',51.5074,-0.1278],['Rotterdam',51.924,4.478]]}
     ];
     var map = L.map('map', {scrollWheelZoom:false, zoomControl:true, attributionControl:true});
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
